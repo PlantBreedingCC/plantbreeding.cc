@@ -199,6 +199,12 @@ exclude:
   - /test
   - /vendor
 
+collections:
+  outreach:
+    output: true
+  research:
+    output: true
+
 defaults:
   - scope:
       path: ""
