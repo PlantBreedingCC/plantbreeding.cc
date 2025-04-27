@@ -13,7 +13,7 @@ const stateData = {
   const height = 600;
   
   // Create an SVG element
-  const svg = d3.select("#us-map")
+  const svg = d3.select("#pbcc-state-reps-map")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
