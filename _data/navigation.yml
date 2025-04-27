@@ -1,21 +1,18 @@
 header:
   - title: About
-    url: /about.html
+    url: /about
 
   - title: US Plant Breeding
-    url: /plant-breeding.html
+    url: /plant-breeding
 
   - title: Outreach
-    url: /outreach.html
+    url: /outreach
 
   - title: Research
-    url: /research.html
+    url: /research
 
-  - title: Administration
-    url: /administration.html
-
-  - title: Archive
-    url: /archive.html
+  - title: Admin
+    url: /administration
 
   - title: NAPB
     url: https://www.plantbreeding.org/
