@@ -1,7 +1,8 @@
 ---
 layout: article
 title: Food Security
-link: /assets/outreach/infographic-food-security.pdf
 key: outreach-food-security
 cover: /assets/images/outreach/infographic-food-security.png
 ---
+
+<embed src="/assets/outreach/infographic-food-security.pdf" width="500" height="375" type="application/pdf">
