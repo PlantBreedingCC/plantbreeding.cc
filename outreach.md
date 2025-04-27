@@ -1,5 +1,5 @@
 ---
-layout: articlex
+layout: articles
 title: Outreach
 key: page-outreach
 articles:
