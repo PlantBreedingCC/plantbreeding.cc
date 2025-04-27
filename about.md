@@ -30,9 +30,6 @@ A Chair position is a one year term. Standard governance for multi-state researc
 
 ![PBCC Map](assets/images/pbcc/pbcc-map-state-reps.png)
 
-
-<div id="us-map"></div>
-
 ### Structure
 
 |                           | PBCC 2006                                                            | NAPB 2009/2011                                                            | ASA-CSSA-SSSA                                                                 | ASHS                                                                            |

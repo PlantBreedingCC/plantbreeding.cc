@@ -4,8 +4,7 @@ const stateData = {
     "AK": "Jane Smith",
     "AZ": "Richard Roe",
     "AR": "Emily Davis",
-    "CA": "Michael Johnson",
-    // Add all other states here...
+    "CA": "Michael Johnson"
   };
   
   // Set dimensions for the map
@@ -13,7 +12,7 @@ const stateData = {
   const height = 600;
   
   // Create an SVG element
-  const svg = d3.select("#pbcc-state-reps-map")
+  const svg = d3.select("#us-map")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
