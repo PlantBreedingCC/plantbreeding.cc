@@ -1,15 +1,8 @@
 ---
 layout: article
-titles:
-  # @start locale config
-  en      : &EN       About
-  # @end locale config
+title: About
 key: page-about
 ---
-
-## About PBCC
-
-Plant breeding is essential to the long-term sustainability of agricultural production to supply a burgeoning global population with food, feed, fiber, fuel, green space, and shelter presents an unprecedented challenge, particularly in the face of climate change and heightened competition for diminishing land, water, and nutrient resources. The public sector has a long history of Plant Breeding, in the United States plant breeding has been an institutional staple since the Morrill act of 1862. Established in 2006, the PBCC continues this history and helps coordinate the role of the public sector in continuing investment in Plant Breeding capacity and infrastructure, as the time-scale of germplasm conservation and evaluation, population development, and selection is long-term endeavor. Part of the mandate was to establish (in cooperation with Industry) common educational standards and help create a space where those with common research interests can meet to reach common goals. The PBCC facilitates ongoing discussion on the needs of the Plant Breeding community and in particular, what public sector breeders and breeding students can do to meet the challenges of the future.
 
 ### Leadership
 
@@ -36,3 +29,17 @@ A Chair position is a one year term. Standard governance for multi-state researc
 ### Representatives
 
 ![PBCC Map](assets/images/pbcc/pbcc-map-state-reps.png)
+
+
+### Structure
+
+|                           | PBCC 2006                                                            | NAPB 2009/2011                                                            | ASA-CSSA-SSSA                                                                 | ASHS                                                                            |
+|---------------------------|----------------------------------------------------------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| Organization type         | Multistate Activity                                                  | Professional Society                                                      | Professional Society                                                          | Professional Society                                                            |
+| Established by            | SAES & NIFA                                                          | Members                                                                   | Members                                                                       | Members                                                                         |
+| Ownership                 | Land Grant University (LGU) System                                   | Independent                                                               | Independent                                                                   | Independent                                                                     |
+| Membership                | One per SAES designated by Director  			Anyone  else by request         | Anyone  			Membership fee                                                    | Anyone  			Membership fee                                                        | Anyone  			Membership fee                                                          |
+| Primary activity          | Coordinate activities to solve PB problems of common interest        | Scientific exchange  			Advocate for PB  			Recognize achievements              | Scientific exchange  			Advocate for Agriculture Science  			Recognize achievements | Scientific exchange  			Advocate for Horticultural Science  			Recognize achievements |
+| Recommendations to        | LGU & USDA leaders  			State & federal agencies  			Congress ONLY if asked | State or federal legislators  			Any other federal, state, or private entity | State or federal legislators  			Any other federal, state, or private entity     | State or federal legislators  			Any other federal, state, or private entity       |
+| NIFA may request comments | Directly through NPL representative member                           | Only in open public forum widely announced in advance                     | Only in open public forum widely announced in advance                         | Only in open public forum widely announced in advance                           |
+| Educational targets       | Everyone                                                             | Everyone                                                                  | Everyone                                                                      | Everyone                                                                        |
