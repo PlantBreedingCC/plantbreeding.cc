@@ -5,6 +5,5 @@ key: page-research
 articles:
   data_source: site.research
   type: grid
-  size: sm
 ---
 
