@@ -75,7 +75,12 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr("stroke-width", 0.5)
             .on("mouseover", function(event, d) {
                 // Get state abbreviation
-                const stateAbbr = getStateAbbr(d.id);
+                const stateId = d.id;
+                const stateAbbr = getStateAbbr(stateId);
+                
+                // Debug: Log state ID and abbreviation to console
+                console.log("Hovering state ID:", stateId, "Abbreviation:", stateAbbr);
+                
                 const data = breedingPrograms[stateAbbr];
                 
                 // Change fill color on hover
@@ -97,9 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         .style("top", (event.pageY - 28) + "px");
                 }
             })
-            .on("mouseout", function(d) {
-                // Reset fill color
-                const stateAbbr = getStateAbbr(d.id);
+            .on("mouseout", function(event, d) {
+                // Fix: Ensure 'd' is properly accessed
+                const stateId = d.id;
+                const stateAbbr = getStateAbbr(stateId);
+                
+                // Debug: Log state ID on mouseout
+                console.log("Leaving state ID:", stateId, "Abbreviation:", stateAbbr);
+                
                 d3.select(this).attr("fill", breedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0");
                 
                 // Hide tooltip
@@ -111,6 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Helper function to convert state ID to abbreviation
     function getStateAbbr(stateId) {
+        // Convert stateId to string to ensure proper lookup
+        stateId = stateId.toString();
+        
         const states = {
             "1": "AL", "2": "AK", "4": "AZ", "5": "AR", "6": "CA", "8": "CO", "9": "CT",
             "10": "DE", "11": "DC", "12": "FL", "13": "GA", "15": "HI", "16": "ID", "17": "IL",
@@ -121,6 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
             "47": "TN", "48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA", "54": "WV",
             "55": "WI", "56": "WY"
         };
+        
+        // Debug: Check if state ID exists in our mapping
+        if (!states[stateId]) {
+            console.warn("Missing state ID mapping:", stateId);
+        }
+        
         return states[stateId];
     }
     

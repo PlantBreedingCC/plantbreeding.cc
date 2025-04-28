@@ -1,4 +1,7 @@
 header:
+  - title: Home
+    url: /
+
   - title: About
     url: /about
 
