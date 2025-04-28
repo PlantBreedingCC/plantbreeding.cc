@@ -10,13 +10,13 @@ Annual meetings will be held to exchange information, plan and coordinate activi
 
 ### Objectives
 
-**Objective 1: Collect, analyze, and disseminate information about U.S. public and private plant breeding efforts, including human capacity and access to enabling knowledge, technologies, germplasm, and infrastructure**
+**Objective 1**: Collect, analyze, and disseminate information about U.S. public and private plant breeding efforts, including human capacity and access to enabling knowledge, technologies, germplasm, and infrastructure
 
-**Objective 2: Genetic Resources Conservation and Utilization: Promote the conservation, characterization, and utilization of plant genetic resources and access to those resources for plant breeding purposes**
+**Objective 2**: Genetic Resources Conservation and Utilization: Promote the conservation, characterization, and utilization of plant genetic resources and access to those resources for plant breeding purposes
 
-**Objective 3: Explore and improve the U.S. plant breeding education capacity across 1862, 1890 and 1994 LGU and other agricultural Universities**
+**Objective 3**: Explore and improve the U.S. plant breeding education capacity across 1862, 1890 and 1994 LGU and other agricultural Universities
 
-**Objective 4: Improve communication [1] among public plant breeders and federal-state-local agencies on plant breeding policy issues, including alerts to existing and emerging threats to agricultural security that are relevant to plant breeding; and [2] among public plant breeding programs and university administrators through enhancing the mission and impact of PBCC state representatives.**
+**Objective 4**: Improve communication [1] among public plant breeders and federal-state-local agencies on plant breeding policy issues, including alerts to existing and emerging threats to agricultural security that are relevant to plant breeding; and [2] among public plant breeding programs and university administrators through enhancing the mission and impact of PBCC state representatives.
 
 ### Leadership
 
