@@ -11,9 +11,6 @@ header:
   - title: Research
     url: /research
 
-  - title: Admin
-    url: /administration
-
   - title: NAPB
     url: https://www.plantbreeding.org/
     target: _blank
