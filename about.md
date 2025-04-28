@@ -150,6 +150,7 @@ A Chair position is a one year term. Standard governance for multi-state researc
 
 </div>
 
+<div align="center">
 
 | Year  | Name               | Organization                      |
 |-------|--------------------|-----------------------------------|
@@ -172,6 +173,8 @@ A Chair position is a one year term. Standard governance for multi-state researc
 | 2009  | Phil Simon         | USDA-ARS, University of Wisconsin |
 | 2008  | Steve Baenziger    | University of Nebraska            |
 | 2007  | Steve Baenziger    | University of Nebraska            |
+
+</div>
 
 ### Helpful Information
 
