@@ -2,17 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Map dimensions
     const width = document.getElementById('us-map-container').offsetWidth;
     const height = 500;
-    
-    // Plant breeding program data by state
-    const breedingPrograms = {
-        "AL": { count: 2, institutions: ["Auburn University", "Alabama A&M University"] },
-        "CA": { count: 5, institutions: ["UC Davis", "UC Riverside", "Cal Poly SLO", "Fresno State", "Stanford"] },
-        "FL": { count: 3, institutions: ["University of Florida", "Florida A&M", "Florida State"] },
-        "IA": { count: 2, institutions: ["Iowa State University", "University of Iowa"] },
-        "NY": { count: 4, institutions: ["Cornell University", "SUNY", "Columbia", "NYU"] },
-        // Add data for other states as needed
-    };
-    
+
     // Create SVG
     const svg = d3.select('#us-map-container')
         .append('svg')
@@ -39,9 +29,15 @@ document.addEventListener('DOMContentLoaded', function() {
         .style("border-radius", "3px")
         .style("padding", "10px")
         .style("pointer-events", "none");
+
+    // Load the CSV data and US map data in parallel
+    Promise.all([
+        d3.csv("{{ site.baseurl }}/assets/data/reps.csv"),
+        d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+    ]).then(function([csvData, us]) {
+        // Process CSV data to format we need
+        const breedingPrograms = processBreedingData(csvData);
         
-    // Load US map data
-    d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json").then(function(us) {
         // Draw states
         svg.append("g")
             .selectAll("path")
@@ -62,11 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .on("mouseover", function(event, d) {
                 // Get state abbreviation
                 const stateId = d.id;
-                const stateAbbr = getStateAbbr(stateId);
-                
-                // Debug: Log state ID and abbreviation to console
-                console.log("Hovering state ID:", stateId, "Abbreviation:", stateAbbr);
-                
+                const stateAbbr = getStateAbbr(stateId);               
                 const data = breedingPrograms[stateAbbr];
                 
                 // Change fill color on hover
@@ -78,10 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         .duration(200)
                         .style("opacity", .9);
                     
+                    // Create HTML for the list of people, with leads marked by parentheses
+                    const peopleList = data.people.map(person => 
+                        person.isLead ? `${person.name} (Lead)` : person.name
+                    ).join("<br>");
+                    
                     let tooltipContent = `<strong>${getStateName(stateAbbr)}</strong><br>
-                                         Programs: ${data.count}<br>
-                                         Institutions:<br>
-                                         ${data.institutions.join("<br>")}`;
+                                         Representatives: ${data.count}<br>
+                                         ${peopleList}`;
                                          
                     tooltip.html(tooltipContent)
                         .style("left", (event.pageX + 10) + "px")
@@ -92,10 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Fix: Ensure 'd' is properly accessed
                 const stateId = d.id;
                 const stateAbbr = getStateAbbr(stateId);
-                
-                // Debug: Log state ID on mouseout
-                console.log("Leaving state ID:", stateId, "Abbreviation:", stateAbbr);
-                
+                                
                 d3.select(this).attr("fill", breedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0");
                 
                 // Hide tooltip
@@ -104,6 +97,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     .style("opacity", 0);
             });
     });
+
+    // Process CSV data into the format we need for the map
+    function processBreedingData(csvData) {
+        let programs = {};
+        
+        csvData.forEach(function(row) {
+            const state = row.state;
+            const isLead = row.isLead === "TRUE" || row.isLead === "true" || row.isLead === true;
+            
+            // Initialize the state if it doesn't exist yet
+            if (!programs[state]) {
+                programs[state] = {
+                    count: 0,
+                    people: []
+                };
+            }
+            
+            // Add person to the state data
+            programs[state].people.push({
+                name: row.name || row.person || row.representative || row.rep,
+                isLead: isLead
+            });
+            
+            // Increment count
+            programs[state].count++;
+        });
+        
+        return programs;
+    }
     
     // Helper function to convert state ID to abbreviation
     function getStateAbbr(stateId) {
