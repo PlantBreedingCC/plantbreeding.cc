@@ -26,19 +26,7 @@ A Chair position is a one year term. Standard governance for multi-state researc
 | 2008  | Steve Baenziger    | University of Nebraska            |
 | 2007  | Steve Baenziger    | University of Nebraska            |
 
-### Representatives
 
-![PBCC Map](assets/images/pbcc/pbcc-map-state-reps.png)
-
-
-<div id="us-map-container" style="width: 100%; height: 500px;"></div>
-
-<!-- Load libraries  -->
-<link rel="stylesheet" href="assets/css/us-breeding-map.css">
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://d3js.org/topojson.v3.min.js"></script>
-<script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
-<script src="assets/js/us-breeding-map.js"></script>
 
 ### Structure
 

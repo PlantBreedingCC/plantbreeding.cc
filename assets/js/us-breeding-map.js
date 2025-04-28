@@ -75,8 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         person.isLead ? `${person.name} (Lead)` : person.name
                     ).join("<br>");
                     
-                    let tooltipContent = `<strong>${getStateName(stateAbbr)}</strong><br>
-                                         Representatives: ${data.count}<br>
+                    let tooltipContent = `<strong>${getStateName(stateAbbr)} (${data.count}) </strong><br>
                                          ${peopleList}`;
                                          
                     tooltip.html(tooltipContent)
