@@ -8,6 +8,8 @@ key: page-about
 
 A Chair position is a one year term. Standard governance for multi-state research activities will be followed. Officers will include a Chair, Vice-Chair, and Secretary. Each year at the annual meeting the Vice-Chair will become the Chair for the coming year, and the Secretary will become the Vice-Chair. Prior to the annual meeting, nominations for Secretary will be solicited and an election held by email to ensure broad participation.
 
+<div style="display: flex; justify-content: center;">
+
 | Year  | Name               | Organization                      |
 |-------|--------------------|-----------------------------------|
 | 2021  | Wayne Smith        | Texas A&M                         |
@@ -26,6 +28,8 @@ A Chair position is a one year term. Standard governance for multi-state researc
 | 2008  | Steve Baenziger    | University of Nebraska            |
 | 2007  | Steve Baenziger    | University of Nebraska            |
 
+</div>
+
 ### Representatives
 
 ![PBCC Map](assets/images/pbcc/pbcc-map-state-reps.png)
@@ -33,11 +37,15 @@ A Chair position is a one year term. Standard governance for multi-state researc
 
 <div id="us-map-container" style="width: 100%; height: 500px;"></div>
 
-<!-- Load libraries -->
+<!-- Load libraries 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://d3js.org/topojson.v3.min.js"></script>
-<script src="https://unpkg.com/geo-albers-usa-territories"></script> 
+<script src="https://unpkg.com/geo-albers-usa-territories"></script> -->
 
+<script src="https://unpkg.com/d3@5.11.0/dist/d3.min.js"></script>
+<script src="https://unpkg.com/topojson@3.0.2/dist/topojson.min.js"></script>
+<script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
+  
 <link rel="stylesheet" href="assets/css/us-breeding-map.css">
 
   
