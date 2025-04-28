@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('height', height);
         
     // Define map projection
-    const projection = d3.geoAlbersUsa()
+    const projection = geoAlbersUsaTerritories()
         .scale(width)
         .translate([width / 2, height / 2]);
         
@@ -33,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load the CSV data and US map data in parallel
     Promise.all([
         d3.csv("https://plantbreeding.cc/assets/data/reps.csv"),
-        d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+        // d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
+        d3.json("https://unpkg.com/geo-albers-usa-territories@0.1.0/example/us-atlas-territories-10m.json")
     ]).then(function([csvData, us]) {
         // Process CSV data to format we need
         const breedingPrograms = processBreedingData(csvData);
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "32": "NV", "33": "NH", "34": "NJ", "35": "NM", "36": "NY", "37": "NC", "38": "ND",
             "39": "OH", "40": "OK", "41": "OR", "42": "PA", "44": "RI", "45": "SC", "46": "SD",
             "47": "TN", "48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA", "54": "WV",
-            "55": "WI", "56": "WY"
+            "55": "WI", "56": "WY", "72": "PR"
         };
         
         // Debug: Check if state ID exists in our mapping
@@ -161,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "MA": "Massachusetts", "MI": "Michigan", "MN": "Minnesota", "MS": "Mississippi", "MO": "Missouri",
             "MT": "Montana", "NE": "Nebraska", "NV": "Nevada", "NH": "New Hampshire", "NJ": "New Jersey",
             "NM": "New Mexico", "NY": "New York", "NC": "North Carolina", "ND": "North Dakota", "OH": "Ohio",
-            "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
+            "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "PR": "Puerto Rico", "RI": "Rhode Island", "SC": "South Carolina",
             "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
             "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming",
             "DC": "District of Columbia"

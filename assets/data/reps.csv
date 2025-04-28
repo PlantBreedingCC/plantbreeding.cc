@@ -1,33 +1,35 @@
 state,name,isLead
-AL,Jenny Koebernick,TRUE
 AK,Jakir Hasan,TRUE
-AZ,Duke Pauli,TRUE
+AL,Jenny Koebernick,TRUE
 AR,Leandro Mozzoni,TRUE
 AR,Caio Canella Vieira,
+AZ,Duke Pauli,TRUE
 CA,Allen Van Deynze,TRUE
 CO,Esten Mason,TRUE
 FL,Barry Tillman,TRUE
 FL,Diego Jarquin,
-GA,Ali M Missaoui,
 GA,Donglin Zhang,TRUE
+GA,Ali M Missaoui,
 HI,Michael Kantar,TRUE
 HI,Nathan Fumia,
+IA,Thomas Lubberstedt,TRUE
 ID,Kamal Khadka,
 IL,Martin Bohn,TRUE
 IL,J. A. Juvik,
 IL,Juan Arbelaez Velez,
-IA,Thomas Lubberstedt,TRUE
 KS,Guorong Zhang,TRUE
 LA,Noah DeWitt,
-ME,Ek Han Tan,
-ME,Mario Murad Leite Andrade,TRUE
-MD,Vijay Tiwari,TRUE
 MA,Brook Moyers,TRUE
-MI,David Douches,
+MD,Vijay Tiwari,TRUE
+ME,Mario Murad Leite Andrade,TRUE
+ME,Ek Han Tan,
 MI,Addie Thompson,TRUE
+MI,David Douches,
 MN,Neil Anderson,TRUE
 MS,Marta Pudzianowska,TRUE
 MT,Jason Cook,TRUE
+NC,Vasu Kuraparthy,TRUE
+ND,Mukhlesur Rahman,TRUE
 NE,George Graef,TRUE
 NH,Iago Hale,TRUE
 NJ,Stacy Bonos,TRUE
@@ -35,8 +37,6 @@ NM,Richard Pratt,TRUE
 NM,Naveen Puppala,TRUE
 NY,Margaret Smith,
 NY,Michael Gore,
-NC,Vasu Kuraparthy,TRUE
-ND,Mukhlesur Rahman,TRUE
 OH,David Francis,TRUE
 OK,Yanqi Wu,
 OR,Shaun Townsend,TRUE
@@ -46,11 +46,11 @@ SC,Jenna Hershberger,
 SC,Trevor Rife,
 SD,Sunish Sehgal,TRUE
 TX,C. Wayne Smith,TRUE
-TX,Steven Hague,
 TX,Amit Dhingra,TRUE
+TX,Steven Hague,
 UT,Margaret Krause,TRUE
-VT,Eric Bishop-von Wettberg,TRUE
 VA,Bo Zhang,TRUE
+VT,Eric Bishop-von Wettberg,TRUE
 WA,Kate Evans,TRUE
 WA,Per McCord,
 WV,Barbara Liedl,TRUE
