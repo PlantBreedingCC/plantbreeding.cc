@@ -9,14 +9,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('width', width)
         .attr('height', height);
         
-    // Define map projection
+    // Define map projection - use composite projection for US and territories
     const projection = d3.geoAlbersUsa()
         .scale(width)
         .translate([width / 2, height / 2]);
         
-    // Define path generator
-    const path = d3.geoPath()
-        .projection(projection);
+    // Puerto Rico projection (separate)
+    const prProjection = d3.geoMercator()
+        .center([-66.5, 18.2]) // Center of Puerto Rico
+        .scale(width * 5)      // Scale to make PR visible
+        .translate([width * 0.85, height * 0.75]); // Position in bottom-right
+        
+    // Define path generators
+    const path = d3.geoPath().projection(projection);
+    const prPath = d3.geoPath().projection(prProjection);
         
     // Create tooltip div
     const tooltip = d3.select("body")
@@ -30,11 +36,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .style("padding", "10px")
         .style("pointer-events", "none");
 
-    // Load the CSV data and US map data in parallel
+    // Load the CSV data and map data in parallel
     Promise.all([
         d3.csv("https://plantbreeding.cc/assets/data/reps.csv"),
-        d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
-    ]).then(function([csvData, us]) {
+        d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"),
+        d3.json("https://raw.githubusercontent.com/deldersveld/topojson/master/territories/puerto-rico-municipalities.json")
+    ]).then(function([csvData, us, pr]) {
         // Process CSV data to format we need
         const breedingPrograms = processBreedingData(csvData);
         
@@ -55,48 +62,91 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
-            .on("mouseover", function(event, d) {
-                // Get state abbreviation
-                const stateId = d.id;
-                const stateAbbr = getStateAbbr(stateId);               
-                const data = breedingPrograms[stateAbbr];
-                
-                // Change fill color on hover
+            .on("mouseover", handleMouseOver)
+            .on("mouseout", handleMouseOut);
+            
+        // Draw Puerto Rico
+        svg.append("g")
+            .append("path")
+            .datum(topojson.feature(pr, pr.objects.PuertoRico))
+            .attr("d", prPath)
+            .attr("fill", breedingPrograms["PR"] ? "#4CAF50" : "#e0e0e0")
+            .attr("stroke", "#fff")
+            .attr("stroke-width", 0.5)
+            .on("mouseover", function(event) {
+                // Handle Puerto Rico mouseover
                 d3.select(this).attr("fill", "#2E7D32");
                 
-                // Show tooltip with data if available
+                const data = breedingPrograms["PR"];
+                
                 if (data) {
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", .9);
-                    
-                    // Create HTML for the list of people, with leads marked by parentheses
-                    const peopleList = data.people.map(person => 
-                        person.isLead ? `${person.name} (Lead)` : person.name
-                    ).join("<br>");
-                    
-                    let tooltipContent = `<strong>${getStateName(stateAbbr)}</strong><br>
-                                         Representatives: ${data.count}<br>
-                                         ${peopleList}`;
-                                         
-                    tooltip.html(tooltipContent)
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 28) + "px");
+                    showTooltip(event, "Puerto Rico", data);
                 }
             })
-            .on("mouseout", function(event, d) {
-                // Fix: Ensure 'd' is properly accessed
-                const stateId = d.id;
-                const stateAbbr = getStateAbbr(stateId);
-                                
-                d3.select(this).attr("fill", breedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0");
-                
-                // Hide tooltip
-                tooltip.transition()
-                    .duration(500)
-                    .style("opacity", 0);
+            .on("mouseout", function() {
+                d3.select(this).attr("fill", breedingPrograms["PR"] ? "#4CAF50" : "#e0e0e0");
+                hideTooltip();
             });
+            
+        // Add a label for Puerto Rico
+        svg.append("text")
+            .attr("x", width * 0.85)
+            .attr("y", height * 0.72)
+            .attr("text-anchor", "middle")
+            .style("font-size", "10px")
+            .style("font-weight", "bold")
+            .text("PR");
     });
+    
+    // Handlers for mouseover/mouseout events
+    function handleMouseOver(event, d) {
+        // Get state abbreviation
+        const stateId = d.id;
+        const stateAbbr = getStateAbbr(stateId);               
+        const data = breedingPrograms[stateAbbr];
+        
+        // Change fill color on hover
+        d3.select(this).attr("fill", "#2E7D32");
+        
+        // Show tooltip with data if available
+        if (data) {
+            showTooltip(event, getStateName(stateAbbr), data);
+        }
+    }
+    
+    function handleMouseOut(event, d) {
+        const stateId = d.id;
+        const stateAbbr = getStateAbbr(stateId);
+                        
+        d3.select(this).attr("fill", breedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0");
+        
+        hideTooltip();
+    }
+    
+    function showTooltip(event, regionName, data) {
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+        
+        // Create HTML for the list of people, with leads marked by parentheses
+        const peopleList = data.people.map(person => 
+            person.isLead ? `${person.name} (Lead)` : person.name
+        ).join("<br>");
+        
+        let tooltipContent = `<strong>${regionName}</strong><br>
+                             Representatives: ${data.count}<br>
+                             ${peopleList}`;
+                             
+        tooltip.html(tooltipContent)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 28) + "px");
+    }
+    
+    function hideTooltip() {
+        tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+    }
 
     // Process CSV data into the format we need for the map
     function processBreedingData(csvData) {
@@ -164,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "OK": "Oklahoma", "OR": "Oregon", "PA": "Pennsylvania", "RI": "Rhode Island", "SC": "South Carolina",
             "SD": "South Dakota", "TN": "Tennessee", "TX": "Texas", "UT": "Utah", "VT": "Vermont",
             "VA": "Virginia", "WA": "Washington", "WV": "West Virginia", "WI": "Wisconsin", "WY": "Wyoming",
-            "DC": "District of Columbia"
+            "DC": "District of Columbia", "PR": "Puerto Rico"
         };
         return stateNames[stateAbbr] || stateAbbr;
     }
