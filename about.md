@@ -22,7 +22,7 @@ Annual meetings will be held to exchange information, plan and coordinate activi
 
 A Chair position is a one year term. Standard governance for multi-state research activities will be followed. Officers include a Chair, Vice-Chair, and Secretary. Each year at the annual meeting the Vice-Chair will become the Chair for the coming year, and the Secretary will become the Vice-Chair. Prior to the annual meeting, nominations for Secretary will be solicited and an election held by email.
 
-<div class="leadership-table">
+<div align="center">
 
 <table>
   <thead>
