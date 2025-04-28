@@ -115,12 +115,14 @@
               <div class="card__image">
                 <a href="{{ _article.pdf | default: _article_url }}" target="_blank">
                   <img class="image" src="{{ _article_cover }}" />
-                  <div class="overlay overlay--bottom">
-                    <header>
-                      <h2 class="card__header">{{ _article.title }}</h2>
-                    </header>
-                  </div>
                 </a>
+                <div class="overlay overlay--bottom">
+                  <header>
+                    <a href="{{ _article.pdf | default: _article_url }}" target="_blank">
+                      <h2 class="card__header">{{ _article.title }}</h2>
+                    </a>
+                  </header>
+                </div>
               </div>
             {%- endif -%}
             </div>
@@ -130,11 +132,9 @@
         <div class="cell cell--12 cell--md-6 cell--lg-4">
           <div class="card card--flat">
             {%- if _article.cover -%}
-              <div class="card__image">
-                <a href="{{ _article.pdf | default: _article_url }}" target="_blank">
-                  <img src="{{ _article_cover }}" />
-                </a>
-              </div>
+              <a href="{{ _article.pdf | default: _article_url }}" target="_blank">
+                <img class="image" src="{{ _article_cover }}" />
+              </a>
             {%- endif -%}
               <div class="card__content">
                 <header>

@@ -34,7 +34,7 @@ A Chair position is a one year term. Standard governance for multi-state researc
 
 ### Helpful Information
 
-[Register](/register/) for the multistate project
+[Register](/register) for the multistate project
 
 [Letterhead](/assets/administration/PBCC_letterhead.docx)
 
