@@ -38,8 +38,8 @@ A Chair position is a one year term. Standard governance for multi-state researc
 <script src="https://d3js.org/topojson.v3.min.js"></script>
 
 <!-- Load our custom map script and styles -->
-<link rel="stylesheet" href="{{ site.baseurl }}/us-breeding-map.css">
-<script src="{{ site.baseurl }}/assets/js/us-breeding-map.js"></script>
+<link rel="stylesheet" href="/us-breeding-map.css">
+<script src="/assets/js/us-breeding-map.js"></script>
 
 
 ### Structure
