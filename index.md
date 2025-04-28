@@ -9,8 +9,6 @@ Established in 2006, the PBCC continues this history and helps coordinate the ro
 
 ### Representatives
 
-![PBCC Map](assets/images/pbcc/pbcc-map-state-reps.png)
-
 <div id="us-map-container" style="width: 100%; height: 500px;"></div>
 <link rel="stylesheet" href="assets/css/us-breeding-map.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
