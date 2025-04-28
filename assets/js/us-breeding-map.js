@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('height', height);
         
     // Define map projection
-    const projection = geoAlbersUsaTerritories()
+    const projection = geoAlbersUsaTerritories.geoAlbersUsaTerritories()
         .scale(width)
         .translate([width / 2, height / 2]);
         
