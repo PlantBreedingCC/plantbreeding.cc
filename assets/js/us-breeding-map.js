@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('height', height);
     
     // Use geoAlbersUsaTerritories projection that includes Puerto Rico
-    const projection = d3.geoAlbersUsaTerritories()
+    // The correct way to access the function from the library
+    const projection = geoAlbersUsaTerritories()
         .scale(width)
         .translate([width / 2, height / 2]);
         
@@ -30,14 +31,16 @@ document.addEventListener('DOMContentLoaded', function() {
         .style("padding", "10px")
         .style("pointer-events", "none");
 
+    // Define the breedingPrograms variable in a higher scope
+    let breedingPrograms = {};
+
     // Load the CSV data and US map data
     Promise.all([
         d3.csv("https://plantbreeding.cc/assets/data/reps.csv"),
         d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"),
-        // We'll use the standard states file with the special projection instead of loading territories separately
     ]).then(function([csvData, us]) {
         // Process CSV data to format we need
-        const breedingPrograms = processBreedingData(csvData);
+        breedingPrograms = processBreedingData(csvData);
         
         // Draw all states and territories including PR
         svg.append("g")
@@ -100,9 +103,44 @@ document.addEventListener('DOMContentLoaded', function() {
             .style("opacity", 0);
     }
 
-    // Rest of your code (processBreedingData, getStateAbbr) remains the same
+    // Include the missing processBreedingData and getStateAbbr functions
+    function processBreedingData(csvData) {
+        const programs = {};
+        
+        csvData.forEach(row => {
+            const state = row.state;
+            if (!programs[state]) {
+                programs[state] = {
+                    count: 0,
+                    people: []
+                };
+            }
+            
+            programs[state].count++;
+            programs[state].people.push({
+                name: row.name,
+                isLead: row.lead === "1" || row.lead === "yes" || row.lead === "true"
+            });
+        });
+        
+        return programs;
+    }
     
-    // Update getStateName to include Puerto Rico
+    function getStateAbbr(fipsCode) {
+        const fipsToState = {
+            "01": "AL", "02": "AK", "04": "AZ", "05": "AR", "06": "CA", "08": "CO", 
+            "09": "CT", "10": "DE", "11": "DC", "12": "FL", "13": "GA", "15": "HI", 
+            "16": "ID", "17": "IL", "18": "IN", "19": "IA", "20": "KS", "21": "KY", 
+            "22": "LA", "23": "ME", "24": "MD", "25": "MA", "26": "MI", "27": "MN", 
+            "28": "MS", "29": "MO", "30": "MT", "31": "NE", "32": "NV", "33": "NH", 
+            "34": "NJ", "35": "NM", "36": "NY", "37": "NC", "38": "ND", "39": "OH", 
+            "40": "OK", "41": "OR", "42": "PA", "44": "RI", "45": "SC", "46": "SD", 
+            "47": "TN", "48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA", 
+            "54": "WV", "55": "WI", "56": "WY", "72": "PR"
+        };
+        return fipsToState[fipsCode];
+    }
+    
     function getStateName(stateAbbr) {
         const stateNames = {
             "AL": "Alabama", "AK": "Alaska", "AZ": "Arizona", "AR": "Arkansas", "CA": "California",
