@@ -8,8 +8,6 @@ key: page-about
 
 A Chair position is a one year term. Standard governance for multi-state research activities will be followed. Officers will include a Chair, Vice-Chair, and Secretary. Each year at the annual meeting the Vice-Chair will become the Chair for the coming year, and the Secretary will become the Vice-Chair. Prior to the annual meeting, nominations for Secretary will be solicited and an election held by email to ensure broad participation.
 
-<div style="display: flex; justify-content: center;">
-
 | Year  | Name               | Organization                      |
 |-------|--------------------|-----------------------------------|
 | 2021  | Wayne Smith        | Texas A&M                         |
@@ -27,8 +25,6 @@ A Chair position is a one year term. Standard governance for multi-state researc
 | 2009  | Phil Simon         | USDA-ARS, University of Wisconsin |
 | 2008  | Steve Baenziger    | University of Nebraska            |
 | 2007  | Steve Baenziger    | University of Nebraska            |
-
-</div>
 
 ### Representatives
 
