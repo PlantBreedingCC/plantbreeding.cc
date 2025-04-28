@@ -9,20 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
         .attr('width', width)
         .attr('height', height);
         
-    // Define map projection - use composite projection for US and territories
-    const projection = d3.geoAlbersUsa()
+    // Define map projection - use geo-albers-usa-territories which includes PR
+    const projection = d3.geoAlbersUsaTerritories()
         .scale(width)
         .translate([width / 2, height / 2]);
         
-    // Puerto Rico projection (separate)
-    const prProjection = d3.geoMercator()
-        .center([-66.5, 18.2]) // Center of Puerto Rico
-        .scale(width * 5)      // Scale to make PR visible
-        .translate([width * 0.85, height * 0.75]); // Position in bottom-right
-        
-    // Define path generators
+    // Define path generator
     const path = d3.geoPath().projection(projection);
-    const prPath = d3.geoPath().projection(prProjection);
         
     // Create tooltip div
     const tooltip = d3.select("body")
@@ -40,8 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
     Promise.all([
         d3.csv("https://plantbreeding.cc/assets/data/reps.csv"),
         d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json"),
-        d3.json("https://raw.githubusercontent.com/deldersveld/topojson/master/territories/puerto-rico-municipalities.json")
-    ]).then(function([csvData, us, pr]) {
+        d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/territories-10m.json")
+    ]).then(function([csvData, us, territories]) {
         // Process CSV data to format we need
         const breedingPrograms = processBreedingData(csvData);
         
@@ -67,9 +60,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
         // Draw Puerto Rico
         svg.append("g")
+            .selectAll("path")
+            .data(topojson.feature(territories, territories.objects.states).features.filter(d => d.id === "72")) // 72 is PR's FIPS code
+            .enter()
             .append("path")
-            .datum(topojson.feature(pr, pr.objects.PuertoRico))
-            .attr("d", prPath)
+            .attr("d", path)
             .attr("fill", breedingPrograms["PR"] ? "#4CAF50" : "#e0e0e0")
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
@@ -89,11 +84,14 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
         // Add a label for Puerto Rico
+        const prBounds = path.bounds(topojson.feature(territories, territories.objects.states).features.find(d => d.id === "72"));
+        const prCentroid = [(prBounds[0][0] + prBounds[1][0]) / 2, (prBounds[0][1] + prBounds[1][1]) / 2];
+        
         svg.append("text")
-            .attr("x", width * 0.85)
-            .attr("y", height * 0.72)
+            .attr("x", prCentroid[0])
+            .attr("y", prCentroid[1])
             .attr("text-anchor", "middle")
-            .style("font-size", "10px")
+            .style("font-size", "8px")
             .style("font-weight", "bold")
             .text("PR");
     });
@@ -190,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
             "32": "NV", "33": "NH", "34": "NJ", "35": "NM", "36": "NY", "37": "NC", "38": "ND",
             "39": "OH", "40": "OK", "41": "OR", "42": "PA", "44": "RI", "45": "SC", "46": "SD",
             "47": "TN", "48": "TX", "49": "UT", "50": "VT", "51": "VA", "53": "WA", "54": "WV",
-            "55": "WI", "56": "WY"
+            "55": "WI", "56": "WY", "72": "PR" // Added PR with its FIPS code
         };
         
         // Debug: Check if state ID exists in our mapping
