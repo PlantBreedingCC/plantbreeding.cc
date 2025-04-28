@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load the CSV data and US map data in parallel
     Promise.all([
-        d3.csv("{{ site.baseurl }}/assets/data/reps.csv"),
+        d3.csv("/assets/data/reps.csv"),
         d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
     ]).then(function([csvData, us]) {
         // Process CSV data to format we need
