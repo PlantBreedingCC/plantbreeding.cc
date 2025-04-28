@@ -24,7 +24,24 @@ A Chair position is a one year term. Standard governance for multi-state researc
 
 <div align="center">
 
-<table>
+<style>
+.full-width-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+.full-width-table th,
+.full-width-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+.full-width-table th {
+  background-color: #f4f4f4;
+}
+</style>
+
+<table class="full-width-table">
   <thead>
     <tr>
       <th>Year</th>

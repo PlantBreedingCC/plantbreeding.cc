@@ -207,7 +207,6 @@
     width: 100%;
     border-collapse: collapse;
     @include overflow(auto);
-    margin: 0 auto;
     thead, tfoot {
       background-color: $text-background-color;
     }
