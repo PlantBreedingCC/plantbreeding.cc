@@ -33,23 +33,23 @@ Each leadership position is a one year term. Officers include a Chair, Vice-Chai
     </thead>
     <tbody>
       <tr>
-        <td>Jenny Koebernick</td>
-        <td>Auburn University</td>
-        <td>Chair</td>
-      </tr>
-      <tr>
         <td>Juan Arbelaez Velez</td>
         <td>University of Illinois</td>
-        <td>Vice-Chair</td>
+        <td>Chair</td>
       </tr>
       <tr>
         <td>Marta Pudzianowska</td>
         <td>Mississippi State University</td>
+        <td>Vice-Chair</td>
+      </tr>
+      <tr>
+        <td>Jenna Hershberger</td>
+        <td>Clemson University</td>
         <td>Secretary</td>
       </tr>
       <tr>
-        <td>Iago Hale</td>
-        <td>University of New Hampshire</td>
+        <td>Jenny Koebernick</td>
+        <td>Auburn University</td>
         <td>Past Chair</td>
       </tr>
     </tbody>
