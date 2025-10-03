@@ -73,8 +73,11 @@ jobs:
           // Create new row (matching the CSV structure: state,crop_general,crop_specific,Name,Org,State)
           const newRow = `${stateAbbr},${crop_general},,${name},${organization},${state}`;
           
-          // Append the new row
-          csvContent += '\n' + newRow;
+          // Ensure the CSV content ends with a newline, then append the new row
+          if (!csvContent.endsWith('\n')) {
+            csvContent += '\n';
+          }
+          csvContent += newRow + '\n';
           
           // Write back to file
           fs.writeFileSync(csvPath, csvContent);
