@@ -4,6 +4,10 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  contents: write
+  issues: write
+  
 jobs:
   add_program:
     if: contains(github.event.issue.labels.*.name, 'program') && github.event.comment.user.login == 'trife' && contains(github.event.comment.body, 'approved')
