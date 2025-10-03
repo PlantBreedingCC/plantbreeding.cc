@@ -22,13 +22,13 @@ key: page-programs
 }
 
 #us-map-container {
-    margin-bottom: 80px;
+    margin-bottom: 150px;
 }
 
 /* Additional spacing for mobile devices */
 @media (max-width: 768px) {
     #us-map-container {
-        margin-bottom: 120px;
+        margin-bottom: 200px;
     }
 }
 </style>
