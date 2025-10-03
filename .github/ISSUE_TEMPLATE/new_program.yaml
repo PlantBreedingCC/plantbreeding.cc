@@ -3,8 +3,6 @@ description: I would like to update the breeding program map.
 title: "[PROGRAM]: "
 labels: "program"
 
-state	crop_general	crop_specific	Name	Org	State
-
 body:
   - type: input
     id: state

@@ -19,17 +19,11 @@ key: page-programs
     margin: 0 auto 20px auto;
 }
 
-#us-map-container {
-    margin-bottom: 150px;
-}
-
-/* Additional spacing for mobile devices */
-@media (max-width: 768px) {
-    #us-map-container {
-        margin-bottom: 200px;
-    }
-}
 </style>
+
+<div style="text-align: center; margin: 20px 0;">
+Is your program missing from the map? Add it <a href="https://github.com/PlantBreedingCC/plantbreeding.cc/issues/new?template=new_program.yml">here</a>.
+</div>
 
 <div id="us-map-container" style="width: 100%; min-height: 500px;"></div>
 <link rel="stylesheet" href="assets/css/us-breeding-map.css">
@@ -37,5 +31,3 @@ key: page-programs
 <script src="https://d3js.org/topojson.v3.min.js"></script>
 <script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
 <script src="assets/js/us-breeding-programs.js"></script>
-
-Is your program missing from the map? Add it [here](https://github.com/PlantBreedingCC/plantbreeding.cc/issues/new?template=new_program.yml).
