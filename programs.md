@@ -20,6 +20,17 @@ key: page-programs
     max-width: 800px;
     margin: 0 auto 20px auto;
 }
+
+#us-map-container {
+    margin-bottom: 80px;
+}
+
+/* Additional spacing for mobile devices */
+@media (max-width: 768px) {
+    #us-map-container {
+        margin-bottom: 120px;
+    }
+}
 </style>
 
 <div id="us-map-container" style="width: 100%; height: 500px;"></div>

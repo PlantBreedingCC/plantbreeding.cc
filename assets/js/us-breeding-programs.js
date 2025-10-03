@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load the CSV data and US map data in parallel
     Promise.all([
-        d3.csv("assets/data/breeding-programs-test.csv"),
+        d3.csv("assets/data/breeding-programs.csv"),
         d3.json("https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
     ]).then(function([csvData, us]) {
         // Process CSV data to format we need
@@ -76,9 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add person to the state data
             programs[state].people.push({
-                name: row.name,
-                crop: row.crop,
-                organization: row.organization
+                name: row.Name,
+                crop: row.crop_general,
+                cropSpecific: row.crop_specific,
+                organization: row.Org
             });
             
             // Increment count
@@ -94,18 +95,48 @@ document.addEventListener('DOMContentLoaded', function() {
             'Alfalfa': '🌱',
             'Apple': '🍎',
             'Barley': '🌾',
+            'Beans': '🫘',
             'Blueberry': '🫐',
             'Canola': '🌻',
             'Cherry': '🍒',
+            'Citrus': '🍊',
+            'Corn': '🌽',
+            'Cotton': '☁️',
+            'Cover crops': '🌿',
+            'Cranberry': '🫐',
+            'Cucurbits': '🥒',
+            'Forage': '🌱',
+            'Grapes': '🍇',
+            'Grasses': '🌾',
+            'Hemp': '🌿',
             'Hops': '🍺',
+            'Kiwiberry': '🥝',
+            'Leafy vegetables': '🥬',
+            'Melons': '🍈',
+            'Mint': '🌿',
             'Oats': '🌾',
+            'Onion': '🧅',
+            'Ornamentals': '🌺',
             'Peach': '🍑',
             'Peanut': '🥜',
+            'Peas': '🟢',
+            'Pecan': '🌰',
+            'Peppers': '🌶️',
+            'Pine': '🌲',
+            'Plum': '🟣',
             'Potato': '🥔',
+            'Pulses': '🫘',
+            'Raspberry': '🫐',
+            'Rice': '🍚',
+            'Sorghum': '🌾',
             'Soybean': '🌱',
+            'Specialty': '🌟',
             'Strawberry': '🍓',
+            'Sunflower': '🌻',
             'Sweetcorn': '🌽',
             'Tomato': '🍅',
+            'Triticale': '🌾',
+            'Turf': '🌱',
             'Wheat': '🌾'
         };
         return cropIcons[crop] || '🌿'; // Default plant icon
@@ -114,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Create crop filter buttons
     function createCropFilterButtons(csvData) {
         // Get unique crops from the data
-        const crops = [...new Set(csvData.map(d => d.crop))].sort();
+        const crops = [...new Set(csvData.map(d => d.crop_general))].sort();
         
         // Add "All Crops" button
         buttonContainer.append('button')
@@ -288,13 +319,44 @@ document.addEventListener('DOMContentLoaded', function() {
                         .duration(200)
                         .style("opacity", .9);
                     
-                    // Create HTML for the list of people with their crops and organizations
-                    const peopleList = data.people.map(person => 
-                        `${person.name} - ${person.crop} (${person.organization})`
-                    ).join("<br>");
+                    // Create HTML for the list of people grouped by institution
+                    const institutionGroups = {};
                     
-                    let tooltipContent = `<strong>${getStateName(stateAbbr)} (${data.count}) </strong><br>
-                                         ${peopleList}`;
+                    // Group people by institution
+                    data.people.forEach(person => {
+                        if (!institutionGroups[person.organization]) {
+                            institutionGroups[person.organization] = {};
+                        }
+                        
+                        // Group by person name within each institution
+                        if (!institutionGroups[person.organization][person.name]) {
+                            institutionGroups[person.organization][person.name] = [];
+                        }
+                        
+                        // Use crop_specific if available, otherwise fall back to crop_general
+                        const cropDisplay = person.cropSpecific && person.cropSpecific.trim() !== '' 
+                            ? person.cropSpecific 
+                            : person.crop;
+                        
+                        // Add crop to this person's list (avoid duplicates)
+                        if (!institutionGroups[person.organization][person.name].includes(cropDisplay)) {
+                            institutionGroups[person.organization][person.name].push(cropDisplay);
+                        }
+                    });
+                    
+                    // Build HTML for each institution group
+                    const institutionHTML = Object.keys(institutionGroups).map(institution => {
+                        const peopleInInstitution = Object.keys(institutionGroups[institution]).map(personName => {
+                            const crops = institutionGroups[institution][personName];
+                            const cropsList = crops.join(", ");
+                            return `&nbsp;&nbsp;• ${personName} - ${cropsList}`;
+                        }).join("<br>");
+                        
+                        return `<strong>${institution}</strong><br>${peopleInInstitution}`;
+                    }).join("<br><br>");
+                    
+                    let tooltipContent = `<strong>${getStateName(stateAbbr)} (${data.count}) </strong><br><br>
+                                         ${institutionHTML}`;
                                          
                     tooltip.html(tooltipContent)
                         .style("left", (event.pageX + 10) + "px")
