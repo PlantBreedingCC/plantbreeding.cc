@@ -22,7 +22,7 @@ key: page-programs
 </style>
 
 <div style="text-align: center; margin: 20px 0;">
-Is your program missing from the map? Add it <a href="https://github.com/PlantBreedingCC/plantbreeding.cc/issues/new?template=new_program.yml">here</a>.
+Is your program missing from the map? Add it <a href="https://github.com/PlantBreedingCC/plantbreeding.cc/issues/new?template=new_program.yaml">here</a>.
 </div>
 
 <div id="us-map-container" style="width: 100%; min-height: 500px;"></div>
