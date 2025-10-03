@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let allBreedingPrograms = {};
     let filteredBreedingPrograms = {};
     let activeCrop = null;
+    let selectedState = null;
 
     // Create crop filter buttons container
     const buttonContainer = d3.select('#us-map-container')
@@ -102,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'Peanut': '🥜',
             'Potato': '🥔',
             'Soybean': '🌱',
-            'Strawberry': '�草',
+            'Strawberry': '🍓',
             'Sweetcorn': '🌽',
             'Tomato': '🍅',
             'Wheat': '🌾'
@@ -177,6 +178,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Highlight buttons based on available crops in a state
+    function highlightButtonsForState(stateAbbr) {
+        // Clear any existing highlights
+        clearButtonHighlights();
+        
+        if (!allBreedingPrograms[stateAbbr]) return;
+        
+        // Get unique crops in this state
+        const stateCrops = [...new Set(allBreedingPrograms[stateAbbr].people.map(person => person.crop))];
+        
+        // Highlight buttons for crops available in this state
+        d3.selectAll('.crop-filter-btn').each(function() {
+            const buttonText = d3.select(this).text();
+            const cropName = buttonText.replace(/^.+?\s/, ''); // Remove emoji and space
+            
+            if (stateCrops.includes(cropName)) {
+                d3.select(this)
+                    .style('box-shadow', '0 0 10px #FFD700')
+                    .style('border', '2px solid #FFD700');
+            }
+        });
+    }
+    
+    // Clear button highlights
+    function clearButtonHighlights() {
+        d3.selectAll('.crop-filter-btn')
+            .style('box-shadow', 'none')
+            .style('border', 'none');
+    }
+    
     // Update button styles
     function updateButtons(activeButton) {
         d3.selectAll('.crop-filter-btn')
@@ -212,6 +243,36 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
+            .style("cursor", "pointer")
+            .on("click", function(event, d) {
+                // Get state abbreviation
+                const stateId = d.id;
+                const stateAbbr = getStateAbbr(stateId);
+                
+                // Toggle state selection
+                if (selectedState === stateAbbr) {
+                    // Deselect state
+                    selectedState = null;
+                    clearButtonHighlights();
+                    // Reset stroke
+                    d3.select(this).attr("stroke-width", 0.5);
+                } else {
+                    // Select new state
+                    selectedState = stateAbbr;
+                    
+                    // Reset all stroke widths first
+                    svg.selectAll("path").attr("stroke-width", 0.5);
+                    
+                    // Highlight selected state with thicker border
+                    d3.select(this).attr("stroke-width", 3);
+                    
+                    // Highlight relevant crop buttons
+                    highlightButtonsForState(stateAbbr);
+                }
+                
+                // Stop event propagation
+                event.stopPropagation();
+            })
             .on("mouseover", function(event, d) {
                 // Get state abbreviation
                 const stateId = d.id;
@@ -252,6 +313,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     .duration(500)
                     .style("opacity", 0);
             });
+        
+        // Add click handler to clear selection when clicking on empty space
+        svg.on("click", function(event) {
+            // Only clear if clicking on the SVG background (not a state)
+            if (event.target === this) {
+                selectedState = null;
+                clearButtonHighlights();
+                svg.selectAll("path").attr("stroke-width", 0.5);
+            }
+        });
     }
     
     // Update the map with current filter
@@ -263,6 +334,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 const stateId = d.id;
                 const stateAbbr = getStateAbbr(stateId);
                 return filteredBreedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0";
+            })
+            .attr("stroke-width", function(d) {
+                const stateId = d.id;
+                const stateAbbr = getStateAbbr(stateId);
+                return selectedState === stateAbbr ? 3 : 0.5;
             });
     }
     
