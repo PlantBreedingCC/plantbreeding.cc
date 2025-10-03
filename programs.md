@@ -31,11 +31,11 @@ key: page-programs
 }
 </style>
 
-<div id="us-map-container" style="width: 100%; height: 500px;"></div>
+<div id="us-map-container" style="width: 100%; min-height: 500px;"></div>
 <link rel="stylesheet" href="assets/css/us-breeding-map.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://d3js.org/topojson.v3.min.js"></script>
 <script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
 <script src="assets/js/us-breeding-programs.js"></script>
 
-Is your program missing from the map? Add it [here](https://github.com/plantbreedingcc/plantbreedingcc.org/issues/new?template=new_program.md).
+Is your program missing from the map? Add it [here](https://github.com/PlantBreedingCC/plantbreeding.cc/issues/new?template=new_program.yml).
