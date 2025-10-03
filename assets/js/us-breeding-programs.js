@@ -11,14 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Create crop filter buttons container
     const buttonContainer = d3.select('#us-map-container')
-        .insert('div', 'svg')
+        .append('div')
         .attr('id', 'crop-filter-buttons')
-        .style('margin-bottom', '20px')
+        .style('margin-top', '20px')
         .style('text-align', 'center');
 
     // Create SVG
     const svg = d3.select('#us-map-container')
-        .append('svg')
+        .insert('svg', '#crop-filter-buttons')
         .attr('width', width)
         .attr('height', height);
         
