@@ -6,7 +6,7 @@ on:
 
 jobs:
   add_program:
-    if: github.event.issue.labels[*].name == 'program' && github.event.comment.user.login == 'trife' && contains(github.event.comment.body, 'approved')
+    if: contains(github.event.issue.labels.*.name, 'program') && github.event.comment.user.login == 'trife' && contains(github.event.comment.body, 'approved')
     runs-on: ubuntu-latest
     
     steps:
