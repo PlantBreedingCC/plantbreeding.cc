@@ -1,10 +1,8 @@
 ---
 layout: article
-title: Programs
+title: US Breeding Programs
 key: page-programs
 ---
-
-### US Breeding Programs
 
 <style>
 .crop-filter-btn {
@@ -39,3 +37,5 @@ key: page-programs
 <script src="https://d3js.org/topojson.v3.min.js"></script>
 <script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
 <script src="assets/js/us-breeding-programs.js"></script>
+
+Is your program missing from the map? Add it [here](https://github.com/plantbreedingcc/plantbreedingcc.org/issues/new?template=new_program.md).

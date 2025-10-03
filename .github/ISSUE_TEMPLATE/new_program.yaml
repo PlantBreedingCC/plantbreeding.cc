@@ -1,0 +1,45 @@
+name: 🪴New Breeding Program
+description: I would like to update the breeding program map.
+title: "[PROGRAM]: "
+labels: "program"
+
+state	crop_general	crop_specific	Name	Org	State
+
+body:
+  - type: input
+    id: state
+    attributes:
+      label: State
+      description: |
+        Enter the state where the breeding program is located.
+      placeholder: State
+    validations:
+      required: true
+
+  - type: input
+    id: crop_general
+    attributes:
+      label: Crop
+      description: |
+        Enter the general crop type for the breeding program.
+      placeholder: Crop
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: Enter the breeder's name.
+      placeholder: Name
+    validations:
+      required: true
+
+  - type: input
+    id: organization
+    attributes:
+      label: Organization
+      description: Enter the organization associated with the breeding program.
+      placeholder: Organization
+    validations:
+      required: true

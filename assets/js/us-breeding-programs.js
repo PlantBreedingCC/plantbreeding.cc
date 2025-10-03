@@ -144,8 +144,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Create crop filter buttons
     function createCropFilterButtons(csvData) {
-        // Get unique crops from the data
-        const crops = [...new Set(csvData.map(d => d.crop_general))].sort();
+        // Count occurrences of each crop
+        const cropCounts = {};
+        csvData.forEach(d => {
+            const crop = d.crop_general;
+            cropCounts[crop] = (cropCounts[crop] || 0) + 1;
+        });
+        
+        // Separate crops with multiple entries from single entries
+        const majorCrops = [];
+        const specialtyCrops = [];
+        
+        Object.keys(cropCounts).forEach(crop => {
+            if (cropCounts[crop] > 1) {
+                majorCrops.push(crop);
+            } else {
+                specialtyCrops.push(crop);
+            }
+        });
+        
+        // Sort major crops and add Specialty if there are single-entry crops
+        const crops = majorCrops.sort();
+        
+        // Only add a grouped "Specialty" button if:
+        // 1. There are single-entry crops, AND
+        // 2. "Specialty" is not already in the major crops list
+        if (specialtyCrops.length > 0 && !majorCrops.includes('Specialty')) {
+            crops.push('Specialty');
+        }
         
         // Add "All Crops" button
         buttonContainer.append('button')
@@ -161,6 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .on('click', function() {
                 setActiveCrop(null);
                 updateButtons(this);
+                
+                // Reset state selection when filtering
+                selectedState = null;
+                clearButtonHighlights();
+                
                 updateMap();
             });
         
@@ -180,6 +211,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 .on('click', function() {
                     setActiveCrop(crop);
                     updateButtons(this);
+                    
+                    // Reset state selection when filtering
+                    selectedState = null;
+                    clearButtonHighlights();
+                    
                     updateMap();
                 });
         });
@@ -192,6 +228,33 @@ document.addEventListener('DOMContentLoaded', function() {
         if (crop === null) {
             // Show all crops
             filteredBreedingPrograms = { ...allBreedingPrograms };
+        } else if (crop === 'Specialty') {
+            // Filter by specialty crops (crops with only one entry)
+            filteredBreedingPrograms = {};
+            
+            // First, determine which crops are specialty crops
+            const cropCounts = {};
+            Object.values(allBreedingPrograms).forEach(stateData => {
+                stateData.people.forEach(person => {
+                    const cropName = person.crop;
+                    cropCounts[cropName] = (cropCounts[cropName] || 0) + 1;
+                });
+            });
+            
+            const specialtyCropNames = Object.keys(cropCounts).filter(cropName => cropCounts[cropName] === 1);
+            
+            Object.keys(allBreedingPrograms).forEach(state => {
+                const filteredPeople = allBreedingPrograms[state].people.filter(person => 
+                    specialtyCropNames.includes(person.crop)
+                );
+                
+                if (filteredPeople.length > 0) {
+                    filteredBreedingPrograms[state] = {
+                        count: filteredPeople.length,
+                        people: filteredPeople
+                    };
+                }
+            });
         } else {
             // Filter by selected crop
             filteredBreedingPrograms = {};
@@ -219,12 +282,33 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get unique crops in this state
         const stateCrops = [...new Set(allBreedingPrograms[stateAbbr].people.map(person => person.crop))];
         
+        // Count total occurrences of each crop across all states
+        const globalCropCounts = {};
+        Object.values(allBreedingPrograms).forEach(stateData => {
+            stateData.people.forEach(person => {
+                const cropName = person.crop;
+                globalCropCounts[cropName] = (globalCropCounts[cropName] || 0) + 1;
+            });
+        });
+        
+        // Determine which crops should highlight the Specialty button
+        const specialtyCropsInState = stateCrops.filter(crop => globalCropCounts[crop] === 1);
+        
         // Highlight buttons for crops available in this state
         d3.selectAll('.crop-filter-btn').each(function() {
             const buttonText = d3.select(this).text();
             const cropName = buttonText.replace(/^.+?\s/, ''); // Remove emoji and space
             
-            if (stateCrops.includes(cropName)) {
+            // Check if this button should be highlighted
+            let shouldHighlight = false;
+            
+            if (cropName === 'Specialty' && specialtyCropsInState.length > 0) {
+                shouldHighlight = true;
+            } else if (stateCrops.includes(cropName) && globalCropCounts[cropName] > 1) {
+                shouldHighlight = true;
+            }
+            
+            if (shouldHighlight) {
                 d3.select(this)
                     .style('box-shadow', '0 0 10px #FFD700')
                     .style('border', '2px solid #FFD700');
