@@ -364,6 +364,29 @@ document.addEventListener('DOMContentLoaded', function() {
                 const stateId = d.id;
                 const stateAbbr = getStateAbbr(stateId);
                 
+                // If a crop filter is active, reset it when clicking a state
+                if (activeCrop !== null) {
+                    // Reset crop filter to "All Crops"
+                    setActiveCrop(null);
+                    
+                    // Update button styles to show "All Crops" as active
+                    d3.selectAll('.crop-filter-btn')
+                        .style('background-color', '#e0e0e0')
+                        .style('color', '#333')
+                        .classed('active', false);
+                    
+                    d3.selectAll('.crop-filter-btn')
+                        .filter(function() {
+                            return d3.select(this).text().includes('All Crops');
+                        })
+                        .style('background-color', '#4CAF50')
+                        .style('color', 'white')
+                        .classed('active', true);
+                    
+                    // Update map with reset filter
+                    updateMap();
+                }
+                
                 // Toggle state selection
                 if (selectedState === stateAbbr) {
                     // Deselect state
