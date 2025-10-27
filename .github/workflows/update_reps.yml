@@ -1,0 +1,359 @@
+name: Update Representatives Data
+
+on:
+  schedule:
+    # Run every Monday at 3 PM UTC (15:00)
+    - cron: '0 15 * * 1'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update_reps:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install requests beautifulsoup4 pandas lxml html5lib
+    
+    - name: Scrape and update reps data
+      run: |
+        python << 'EOF'
+        import requests
+        import pandas as pd
+        from bs4 import BeautifulSoup
+        import csv
+        import os
+        import re
+        from datetime import datetime
+        
+        # URL to scrape
+        url = "https://nimss.org/projects/view/appendix_e_direct/19248"
+        
+        print(f"Fetching data from: {url}")
+        
+        # State name to abbreviation mapping
+        state_map = {
+            'alabama': 'AL', 'alaska': 'AK', 'arizona': 'AZ', 'arkansas': 'AR', 'california': 'CA',
+            'colorado': 'CO', 'connecticut': 'CT', 'delaware': 'DE', 'florida': 'FL', 'georgia': 'GA',
+            'hawaii': 'HI', 'idaho': 'ID', 'illinois': 'IL', 'indiana': 'IN', 'iowa': 'IA',
+            'kansas': 'KS', 'kentucky': 'KY', 'louisiana': 'LA', 'maine': 'ME', 'maryland': 'MD',
+            'massachusetts': 'MA', 'michigan': 'MI', 'minnesota': 'MN', 'mississippi': 'MS', 'missouri': 'MO',
+            'montana': 'MT', 'nebraska': 'NE', 'nevada': 'NV', 'new hampshire': 'NH', 'new jersey': 'NJ',
+            'new mexico': 'NM', 'new york': 'NY', 'north carolina': 'NC', 'north dakota': 'ND', 'ohio': 'OH',
+            'oklahoma': 'OK', 'oregon': 'OR', 'pennsylvania': 'PA', 'rhode island': 'RI', 'south carolina': 'SC',
+            'south dakota': 'SD', 'tennessee': 'TN', 'texas': 'TX', 'utah': 'UT', 'vermont': 'VT',
+            'virginia': 'VA', 'washington': 'WA', 'west virginia': 'WV', 'wisconsin': 'WI', 'wyoming': 'WY',
+            'district of columbia': 'DC', 'puerto rico': 'PR'
+        }
+        
+        # Headers to mimic a real browser
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+        
+        def format_name(name_raw):
+            """Format name from 'Last, First' to 'First Last' and remove email"""
+            if not name_raw:
+                return ""
+            
+            # The name should now be clean (email removed by <br> processing)
+            name_clean = name_raw.strip()
+            
+            # Remove any remaining email addresses that might be on the same line
+            if '@' in name_clean:
+                parts = name_clean.split()
+                name_parts = []
+                for part in parts:
+                    if '@' not in part:
+                        name_parts.append(part)
+                    else:
+                        break
+                name_clean = ' '.join(name_parts).strip()
+            
+            # Handle 'Last, First' format
+            if ',' in name_clean:
+                comma_parts = name_clean.split(',', 1)
+                if len(comma_parts) == 2:
+                    last_name = comma_parts[0].strip()
+                    first_name = comma_parts[1].strip()
+                    return f"{first_name} {last_name}"
+            
+            # Return as-is if not in expected format
+            return name_clean
+
+        def extract_state(station_text, state_map):
+            """Extract state abbreviation from station text"""
+            if not station_text:
+                return ""
+            
+            station_lower = station_text.lower()
+            
+            # Try to find state name in the text
+            for state_name, abbr in state_map.items():
+                if state_name in station_lower:
+                    return abbr
+            
+            # Try to find existing abbreviations
+            words = station_text.upper().split()
+            for word in words:
+                if len(word) == 2 and word in state_map.values():
+                    return word
+            
+            # Try alternative patterns - look for common university patterns
+            university_patterns = {
+                'university of california': 'CA',
+                'university of florida': 'FL',
+                'university of georgia': 'GA',
+                'university of illinois': 'IL',
+                'university of iowa': 'IA',
+                'university of minnesota': 'MN',
+                'university of wisconsin': 'WI',
+                'iowa state': 'IA',
+                'ohio state': 'OH',
+                'penn state': 'PA',
+                'michigan state': 'MI',
+                'colorado state': 'CO',
+                'kansas state': 'KS',
+                'north carolina state': 'NC',
+                'north dakota state': 'ND',
+                'south dakota state': 'SD',
+                'washington state': 'WA',
+                'oregon state': 'OR',
+                'texas a&m': 'TX',
+                'clemson': 'SC',
+                'auburn': 'AL',
+                'cornell': 'NY',
+                'rutgers': 'NJ'
+            }
+            
+            for pattern, abbr in university_patterns.items():
+                if pattern in station_lower:
+                    return abbr
+            
+            return ""
+        
+        try:
+            # Fetch the webpage
+            response = requests.get(url, headers=headers, timeout=30)
+            response.raise_for_status()
+            
+            print(f"Successfully fetched page. Status code: {response.status_code}")
+            
+            # Parse the HTML
+            soup = BeautifulSoup(response.content, 'html.parser')
+            
+            # Find all tables and analyze them
+            possible_tables = soup.find_all('table')
+            
+            if not possible_tables:
+                print("No tables found on the page")
+                exit(1)
+            
+            print(f"Found {len(possible_tables)} table(s)")
+            
+            # Look for table with participant-related headers
+            participant_table = None
+            
+            for i, table in enumerate(possible_tables):
+                rows = table.find_all('tr')
+                print(f"Table {i+1}: {len(rows)} rows")
+                
+                if rows:
+                    header_cells = rows[0].find_all(['td', 'th'])
+                    header_text = [cell.get_text(strip=True) for cell in header_cells]
+                    print(f"Headers: {header_text}")
+                    
+                    # Look for keywords that indicate participant table
+                    participant_keywords = ['participant', 'name', 'station', 'lead', 'investigator']
+                    if any(keyword in ' '.join(header_text).lower() for keyword in participant_keywords):
+                        participant_table = table
+                        print(f"Selected table {i+1} as participant table")
+                        break
+            
+            # If no auto-detection, use the largest table
+            if not participant_table:
+                participant_table = max(possible_tables, key=lambda t: len(t.find_all('tr')))
+                print(f"Using largest table as fallback")
+            
+            # Extract data from the selected table
+            rows = participant_table.find_all('tr')
+            data = []
+            
+            print(f"Processing table with {len(rows)} rows...")
+            
+            # Skip first row (headers for sub-table) and process data rows
+            processed_names = set()  # Track processed names to avoid duplicates from rowspan
+            
+            for i, row in enumerate(rows[1:], 1):
+                # Skip nested tables within rows
+                nested_tables = row.find_all('table')
+                if nested_tables:
+                    continue
+                    
+                cells = row.find_all(['td', 'th'])
+                if len(cells) < 3:  # Need at least name, station, and lead columns
+                    continue
+                    
+                # Process name cell with <br> tag handling
+                participant_name_raw = ""
+                name_cell = cells[0] if len(cells) > 0 else None
+                
+                if name_cell:
+                    # Replace <br> tags with a special separator to separate name from email
+                    name_html = str(name_cell)
+                    name_html = re.sub(r'<br\s*/?>', '|||BREAK|||', name_html, flags=re.IGNORECASE)
+                    
+                    # Extract text and split by our separator
+                    name_soup = BeautifulSoup(name_html, 'html.parser')
+                    name_text = name_soup.get_text()
+                    
+                    # Split by our separator and take the first part (before email)
+                    name_parts = name_text.split('|||BREAK|||')
+                    
+                    if name_parts:
+                        # Clean up the name part - remove extra whitespace and join lines
+                        name_part = name_parts[0]
+                        # Replace newlines and multiple spaces with single spaces
+                        participant_name_raw = re.sub(r'\s+', ' ', name_part).strip()
+                
+                station_raw = cells[1].get_text(strip=True) if len(cells) > 1 else ""
+                lead_raw = cells[2].get_text(strip=True) if len(cells) > 2 else ""
+                
+                # Skip if this name was already processed (rowspan handling)
+                if participant_name_raw in processed_names:
+                    continue
+                
+                if participant_name_raw:
+                    processed_names.add(participant_name_raw)
+                
+                # Clean and reformat name
+                participant_name = format_name(participant_name_raw)
+                
+                # Extract station/state
+                state_abbr = extract_state(station_raw, state_map)
+                
+                # Extract lead status
+                is_lead = lead_raw.lower().strip() == 'yes'
+                
+                # Skip empty rows
+                if participant_name and state_abbr:
+                    data.append({
+                        'state': state_abbr,
+                        'name': participant_name,
+                        'isLead': 'TRUE' if is_lead else ''
+                    })
+                    print(f"Extracted: {participant_name} | {state_abbr} | Lead: {is_lead}")
+            
+            print(f"Extracted {len(data)} participant records")
+            
+            if not data:
+                print("No data extracted from table")
+                exit(1)
+            
+            # Create directory if it doesn't exist
+            os.makedirs('assets/data', exist_ok=True)
+            
+            # Create or update reps.csv
+            csv_path = 'assets/data/reps.csv'
+            
+            # Write to CSV
+            with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+                fieldnames = ['state', 'name', 'isLead']
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                
+                # Write header
+                writer.writeheader()
+                
+                # Write data
+                for row in data:
+                    writer.writerow(row)
+            
+            print(f"Successfully wrote {len(data)} records to {csv_path}")
+            
+            # Set output for next step
+            with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                f.write(f"records_count={len(data)}\n")
+                f.write(f"update_timestamp={datetime.now().isoformat()}\n")
+        
+        except requests.RequestException as e:
+            print(f"Error fetching webpage: {e}")
+            exit(1)
+        except Exception as e:
+            print(f"Error processing data: {e}")
+            import traceback
+            traceback.print_exc()
+            exit(1)
+        EOF
+      
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if git diff --quiet assets/data/reps.csv; then
+          echo "No changes detected in assets/data/reps.csv"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected in assets/data/reps.csv"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Create Pull Request
+      if: steps.check_changes.outputs.has_changes == 'true'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: |
+          Update representatives data from NIMSS
+          
+          - Automated update from https://nimss.org/projects/view/appendix_e_direct/19248
+          - Updated on: ${{ steps.update_reps.outputs.update_timestamp }}
+          - Records processed: ${{ steps.update_reps.outputs.records_count }}
+        title: "🤖 Update Representatives Data - ${{ github.run_id }}"
+        body: |
+          ## Automated Representatives Data Update
+          
+          This PR contains updated representative information scraped from the NIMSS website.
+          
+          **Source:** https://nimss.org/projects/view/appendix_e_direct/19248
+          **Update Time:** ${{ steps.update_reps.outputs.update_timestamp }}
+          **Records Processed:** ${{ steps.update_reps.outputs.records_count }}
+          
+          ### Changes
+          - Updated `assets/data/reps.csv` with latest participant information
+          - Extracted participant names, states, and lead status
+          
+          ### Review Instructions
+          Please review the changes to ensure:
+          - [ ] Participant names are correctly extracted
+          - [ ] State information is accurate
+          - [ ] Lead status is properly identified
+          
+          This update was automatically generated by the weekly update workflow.
+        branch: update-reps-${{ github.run_id }}
+        delete-branch: true
+        draft: false
+        
+    - name: Output summary
+      run: |
+        echo "## Update Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Records processed:** ${{ steps.update_reps.outputs.records_count }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Has changes:** ${{ steps.check_changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Update time:** ${{ steps.update_reps.outputs.update_timestamp }}" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.check_changes.outputs.has_changes }}" = "true" ]; then
+          echo "- **Action:** Pull request created" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Action:** No changes, no PR created" >> $GITHUB_STEP_SUMMARY
+        fi

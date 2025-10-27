@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr('class', 'crop-filter-btn active')
             .style('margin', '5px')
             .style('padding', '8px 16px')
-            .style('background-color', '#4CAF50')
+            .style('background-color', '#3A506B')
             .style('color', 'white')
             .style('border', 'none')
             .style('border-radius', '4px')
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .classed('active', false);
         
         d3.select(activeButton)
-            .style('background-color', '#4CAF50')
+            .style('background-color', '#3A506B')
             .style('color', 'white')
             .classed('active', true);
     }
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Convert numeric ID to state abbreviation
                 const stateAbbr = getStateAbbr(stateId);
                 // Color based on whether state has data
-                return filteredBreedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0";
+                return filteredBreedingPrograms[stateAbbr] ? "#3A506B" : "#e0e0e0";
             })
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         .filter(function() {
                             return d3.select(this).text().includes('All Crops');
                         })
-                        .style('background-color', '#4CAF50')
+                        .style('background-color', '#3A506B')
                         .style('color', 'white')
                         .classed('active', true);
                     
@@ -418,7 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = filteredBreedingPrograms[stateAbbr];
                 
                 // Change fill color on hover
-                d3.select(this).attr("fill", "#2E7D32");
+                d3.select(this).attr("fill", "#1C2541");
                 
                 // Show tooltip with data if available
                 if (data) {
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const stateId = d.id;
                 const stateAbbr = getStateAbbr(stateId);
                                 
-                d3.select(this).attr("fill", filteredBreedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0");
+                d3.select(this).attr("fill", filteredBreedingPrograms[stateAbbr] ? "#3A506B" : "#e0e0e0");
                 
                 // Hide tooltip
                 tooltip.transition()
@@ -502,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr("fill", function(d) {
                 const stateId = d.id;
                 const stateAbbr = getStateAbbr(stateId);
-                return filteredBreedingPrograms[stateAbbr] ? "#4CAF50" : "#e0e0e0";
+                return filteredBreedingPrograms[stateAbbr] ? "#3A506B" : "#e0e0e0";
             })
             .attr("stroke-width", function(d) {
                 const stateId = d.id;
