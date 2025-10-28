@@ -16,4 +16,6 @@ Established in 2006, the PBCC continues this history and helps coordinate the ro
 <script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
 <script src="assets/js/us-breeding-map.js"></script>
 
- Are you missing from the map? Make sure you are [registered](https://plantbreeding.cc/register) for the multistate project.
+<div style="text-align: center; margin: 20px 0;">
+Are you missing from the map? Make sure you are [registered](https://plantbreeding.cc/register) for the multistate project.
+</div>

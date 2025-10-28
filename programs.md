@@ -26,7 +26,7 @@ Is your program missing from the map? Add it <a href="https://github.com/PlantBr
 </div>
 
 <div id="us-map-container" style="width: 100%; min-height: 500px;"></div>
-<link rel="stylesheet" href="assets/css/us-breeding-map.css">
+<link rel="stylesheet" href="assets/css/us-programs-map.css">
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://d3js.org/topojson.v3.min.js"></script>
 <script src="https://unpkg.com/geo-albers-usa-territories@0.1.0/dist/geo-albers-usa-territories.js"></script>
