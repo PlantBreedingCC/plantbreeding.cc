@@ -1,4 +1,4 @@
-name: Update Representatives Data
+name: update-reps
 
 on:
   schedule:

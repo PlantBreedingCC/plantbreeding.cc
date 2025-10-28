@@ -1,4 +1,4 @@
-name: Add New Breeding Program
+name: new-breeding-program
 
 on:
   issue_comment:
