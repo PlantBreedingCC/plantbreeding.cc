@@ -17,5 +17,5 @@ Established in 2006, the PBCC continues this history and helps coordinate the ro
 <script src="assets/js/us-breeding-map.js"></script>
 
 <div style="text-align: center; margin: 20px 0;">
-Are you missing from the map? Make sure you are [registered](https://plantbreeding.cc/register) for the multistate project.
+Are you missing from the map? Make sure you are <a href="https://github.com/PlantBreedingCC/plantbreeding.cc/issues/new?template=new_program.yml">registered</a> for the multistate project.
 </div>
