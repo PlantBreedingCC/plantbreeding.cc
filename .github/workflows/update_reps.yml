@@ -333,7 +333,7 @@ jobs:
           - [ ] State information is accurate
           - [ ] Lead status is properly identified
           
-        branch: update-reps-${{ github.run_id }}
+        branch: update-reps
         delete-branch: true
         draft: false
         
