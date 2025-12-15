@@ -6,23 +6,27 @@ AL,Soybean,,Jenny Koebernick,Auburn University,Alabama
 AR,Grapes,"Grapes, general/other",Margaret Worthington,University of Arkansas,Arkansas
 AR,Leafy vegetables,,Ainong Shi,University of Arkansas,Arkansas
 AR,Peach,,Margaret Worthington,University of Arkansas,Arkansas
+AR,Rice,,Georgia Eizenga,USDA-ARS,Arkansas
 AR,Soybean,,Caio Canella Vieira,University of Arkansas,Arkansas
 AR,Wheat,,Ehsan SHAKIBA,University of Arkansas,Arkansas
-AR,Rice,,Georgia Eizenga,USDA-ARS,Arkansas
+CA,Beans,Beans (dry),Christine Diepenbrock,"University of California, Davis",California
+CA,Citrus,,Mikeal Roose,"University of California, Riverside",California
 CA,Plum,,Theodore DeJong,"University of California, Davis",California
 CA,Plum,,Ted DeJong,"University of California, Davis",California
-CA,Beans,Beans (dry),Christine Diepenbrock,"University of California, Davis",California
 CA,Tomato,,Roger Chetelat,"University of California, Davis",California
 CA,Triticale,,Joshua Hegarty,"University of California, Davis",California
+CA,Turf,,Adam Lukaszewski,"University of California, Riverside",California
+CA,Turf,,James H Baird,"University of California, Riverside",California
 CA,Wheat,,Jorge Dubcovsky,"University of California, Davis",California
-CA,Citrus,,Mikeal Roose,"University of California, Riverside",California
 CO,Potato,,Jessica Chitwood-Brown,Colorado State University,Colorado
 CT,Ornamentals,Ornamental trees and shrubs,Mark Brand,University of Connecticut,Connecticut
 DE,Beans,Lima beans,Emmalea Ernest,University of Delaware,Delaware
-FL,Forage,Alfalfa,Esteban Rios,University of Florida,Florida
 FL,Blueberry,,Patricio Munoz,University of Florida,Florida
 FL,Citrus,,Jose Chaparro,University of Florida,Florida
 FL,Citrus,,Manjul Dutt,University of Florida,Florida
+FL,Citrus,,Fred Gmitter,University of Florida,Florida
+FL,Cucurbits,,Geoffrey Meru,University of Florida,Florida
+FL,Forage,Alfalfa,Esteban Rios,University of Florida,Florida
 FL,Grapes,"Grapes, general/other",Manjul Dutt,University of Florida,Florida
 FL,Leafy vegetables,,German Sandoya Miranda,University of Florida,Florida
 FL,Ornamentals,Bedding/garden plants,Alfred Huo,University of Florida,Florida
@@ -39,8 +43,7 @@ FL,Sweetcorn,,Marcio Resende,University of Florida,Florida
 FL,Tomato,,Samuel Hutton,University of Florida,Florida
 FL,Turf,,Kevin Kenworthy,University of Florida,Florida
 FL,Wheat,,Md Ali Babar,University of Florida,Florida
-FL,Citrus,,Fred Gmitter,University of Florida,Florida
-FL,Cucurbits,,Geoffrey Meru,University of Florida,Florida
+GA,Corn,,Joseph Knoll,USDA-ARS,Georgia
 GA,Forage,Alfalfa,Ali Missaoui,University of Georgia,Georgia
 GA,Forage,,Ali Missaoui,University of Georgia,Georgia
 GA,Melons,,Cecilia McGregor,University of Georgia,Georgia
@@ -48,24 +51,26 @@ GA,Ornamentals,Herbaceous perennials and decorative greens,John Ruter,University
 GA,Peach,,Dario Chavez,University of Georgia,Georgia
 GA,Peanut,,Peggy Ozias-Akins,University of Georgia,Georgia
 GA,Pecan,,Patrick Conner,University of Georgia,Georgia
+GA,Sorghum,Sweet sorghum,Joseph Knoll,USDA-ARS,Georgia
 GA,Soybean,,Zenglu Li,University of Georgia,Georgia
 GA,Soybean,,Wayne Parrott,University of Georgia,Georgia
 GA,Tomato,,Esther Vanderknaap,University of Georgia,Georgia
-GA,Corn,,Joseph Knoll,USDA-ARS,Georgia
-GA,Sorghum,Sweet sorghum,Joseph Knoll,USDA-ARS,Georgia
+GA,Turf,,Brian Schwartz,University of Georgia,Georgia
+GA,Turf,,Phillip Vines,University of Georgia,Georgia
+GA,Turf,,Paul Raymer,University of Georgia,Georgia
 HI,Ornamentals,"Cut flowers, foliage, and landscape plants",James Keach,University of Hawaii,Hawaii
 IA,Corn,,Thomas Lubberstedt,Iowa State University,Iowa
 IA,Corn,,Jianming Yu,Iowa State University,Iowa
+IA,Corn,,Jode Edwards,USDA-ARS,Iowa
+IA,Corn,,Adam Vanous,USDA-ARS,Iowa
 IA,Cover crops,,Shuizhang Fei,Iowa State University,Iowa
 IA,Sorghum,,Maria Salas Fernandez,Iowa State University,Iowa
 IA,Soybean,,Asheesh Singh,Iowa State University,Iowa
-IA,Corn,,Jode Edwards,USDA-ARS,Iowa
-IA,Corn,,Adam Vanous,USDA-ARS,Iowa
 ID,Canola,,Kamal Khadka,University of Idaho,Idaho
 IL,Corn,,Nicholas Heller,Illinois State University,Illinois
 IL,Corn,,Martin Bohn,University of Illinois,Illinois
-IL,Soybean,,Eliana Monteverde,University of Illinois,Illinois
 IL,Oats,,Juan Arbelaez,University of Illinois at Urbana-Champaign,Illinois
+IL,Soybean,,Eliana Monteverde,University of Illinois,Illinois
 KS,Wheat,,Mary Guttieri,USDA-ARS,Kansas
 KY,Oats,,Lauren Brzozowski,University of Kentucky,Kentucky
 KY,Wheat,,David A Van Sanford,University of Kentucky,Kentucky
@@ -79,12 +84,13 @@ MI,Strawberry,,Patrick Edger,Michigan State University,Michigan
 MI,Wheat,,Eric Olson,Michigan State University,Michigan
 MN,Apple,,James Luby,University of Minnesota,Minnesota
 MN,Corn,,Rex Bernardo,University of Minnesota,Minnesota
+MN,Forage,Alfalfa,Zhanyou Xu,USDA-ARS,Minnesota
 MN,Grapes,"Grapes, general/other",Matthew Clark,University of Minnesota,Minnesota
 MN,Ornamentals,Bedding/garden plants,Neil Anderson,University of Minnesota,Minnesota
 MN,Ornamentals,Ornamental trees and shrubs,Stan C Hokanson,University of Minnesota,Minnesota
 MN,Potato,,Laura Shannon,University of Minnesota,Minnesota
 MN,Turf,,Nancy Ehlke,University of MInnesota,Minnesota
-MN,Forage,Alfalfa,Zhanyou Xu,USDA-ARS,Minnesota
+MN,Turf,,Eric Watkins,University of Minnesota,Minnesota
 MS,Grasses,,Brian Baldwin,Mississippi State University,Mississippi
 MS,Rice,,Ed Redona,Mississippi State University,Mississippi
 MS,Turf,,Marta Pudzianowska,Mississippi State University,Mississippi
@@ -100,9 +106,9 @@ NC,Turf,,Susana Milla-Lewis,North Carolina State University,North Carolina
 ND,Beans,Beans (dry),Juan M. Osorno,North Dakota State University,North Dakota
 ND,Canola,,Mukhlesur Rahman,North Dakota State University,North Dakota
 ND,Ornamentals,Ornamental trees and shrubs,Todd West,North Dakota State University,North Dakota
+ND,Sunflower,Sunflower,Brent Hulke,USDA-ARS,North Dakota
 ND,Wheat,,Gideon Marais,North Dakota State University,North Dakota
 ND,Wheat,Durum wheat,Elias Elias,North Dakota State University,North Dakota
-ND,Sunflower,Sunflower,Brent Hulke,USDA-ARS,North Dakota
 NE,Hops,,Keenan Amundsen,University of Nebraska,Nebraska
 NE,Ornamentals,"Ornamentals and turf, general/other (includes cacti)",Keenan Amundsen,University of Nebraska,Nebraska
 NE,Soybean,,George Graef,University of Nebraska,Nebraska
@@ -123,6 +129,7 @@ OH,Apple,,Jonathan Fresnedo,The Ohio State University,Ohio
 OH,Specialty,"Rubber, gum, and resin plants, general/other",Jonathan Fresnedo,The Ohio State University,Ohio
 OH,Tomato,,David Francis,The Ohio State University,Ohio
 OH,Wheat,,Clay Sneller,The Ohio State University,Ohio
+OK,Turf,,Yanqi Wu,Oklahoma State University,Oklahoma
 OK,Wheat,,Brett Carver,Oklahoma State University,Oklahoma
 OR,Hops,,Shaun Townsend,Oregon State University,Oregon
 OR,Mint,,Kelly Vining,Oregon State University,Oregon
@@ -131,22 +138,19 @@ OR,Potato,,Sagar Sathuvalli,Oregon State University,Oregon
 OR,Wheat,,Ryan Graebner,Oregon State University,Oregon
 SC,Beans,Lima beans,Jenna Hershberger,Clemson University,South Carolina
 SC,Beans,"Beans (fresh, fresh-processed)",Sandra Branham,Clemson University,South Carolina
+SC,Corn,,Trevor Rife,Clemson University,South Carolina
 SC,Leafy vegetables,,Sandra Branham,Clemson University,South Carolina
 SC,Melons,,Sandra Branham,Clemson University,South Carolina
 SC,Peach,,Ksenija Gasic,Clemson University,South Carolina
 SC,Pulses,Peas,Dil Thavarajah,Clemson University,South Carolina
-SC,Wheat,,Richard Boyles,Clemson University,South Carolina
-SC,Corn,,Trevor Rife,Clemson University,South Carolina
 SC,Sorghum,,Richard Boyles,Clemson University,South Carolina
+SC,Wheat,,Richard Boyles,Clemson University,South Carolina
 TN,Soybean,,Ali Taheri,Tennessee State University,Tennessee
 TN,Soybean,,Vince Pantalone,University of Tennessee,Tennessee
-TX,Cover crops,"Winter annual legumes (includes subterranean clover, arrowleaf clover)",Gerald Smith,Texas A&M AgriLife Research,Texas
-TX,Forage,"Forage legumes, general/other",Gerald Smith,Texas A&M AgriLife Research,Texas
-TX,Turf,,Ambika Chandra,Texas A&M AgriLife Research,Texas
-TX,Wheat,,Jackie Rudd,Texas A&M AgriLife Research,Texas
-TX,Wheat,,Shuyu Liu,Texas A&M AgriLife Research,Texas
 TX,Cotton,,David Stelly,Texas A&M University,Texas
 TX,Cotton,,Wayne Smith,Texas A&M University,Texas
+TX,Cover crops,"Winter annual legumes (includes subterranean clover, arrowleaf clover)",Gerald Smith,Texas A&M AgriLife Research,Texas
+TX,Forage,"Forage legumes, general/other",Gerald Smith,Texas A&M AgriLife Research,Texas
 TX,Grasses,"Perennial grasses, other",Russell Jessup,Texas A&M University,Texas
 TX,Grasses,"Warm season perennial grasses (includes dallisgrass, bluestems, bermudagrass)",Mark Hussey,Texas A&M University,Texas
 TX,Leafy vegetables,,Carlos Avila,Texas A&M University,Texas
@@ -156,36 +160,28 @@ TX,Potato,,M. Isabel Vales,Texas A&M University,Texas
 TX,Potato,,M. Isabel Vales,Texas A&M University,Texas
 TX,Sorghum,,William Rooney,Texas A&M University,Texas
 TX,Tomato,,Carlos Avila,Texas A&M University,Texas
+TX,Turf,,Ambika Chandra,Texas A&M AgriLife Research,Texas
+TX,Wheat,,Jackie Rudd,Texas A&M AgriLife Research,Texas
+TX,Wheat,,Shuyu Liu,Texas A&M AgriLife Research,Texas
 VA,Soybean,,Bo Zhang,Virginia Polytechnic Institute and State University,Virginia
 VT,Cover crops,Overwintering dual use cover crops,Eric von Wettberg,University of Vermont,Vermont
 VT,Wheat,,Heather Darby,University of Vermont,Vermont
-WA,Wheat,,Kimberly Garland-Campbell,USDA-ARS,Washington
-WA,Hops,,Kayla Altendorf,USDA-ARS,Washington
-WA,Potato,,Max Feldman,USDA-ARS,Washington
 WA,Apple,,Cameron Peace,Washington State University,Washington
 WA,Apple,,Kate Evans,Washington State University,Washington
 WA,Cherry,,Per McCord,Washington State University,Washington
+WA,Hops,,Kayla Altendorf,USDA-ARS,Washington
+WA,Potato,,Max Feldman,USDA-ARS,Washington
 WA,Raspberry,,Wendy Hoashi-Erhardt,Washington State University,Washington
 WA,Specialty,"Quinoa, buckwheat, spelt, perennial grains",Kevin Murphy,Washington State University,Washington
 WA,Turf,,Michael Neff,Washington State University,Washington
+WA,Wheat,,Kimberly Garland-Campbell,USDA-ARS,Washington
 WA,Wheat,,Arron Carter,Washington State University,Washington
 WI,Corn,,Walter Goldstein,"Mandaamin Institute, Inc.",Wisconsin
 WI,Corn,,Shawn Kaeppler,University of Wisconsin,Wisconsin
-WI,Sweetcorn,,William F Tracy,University of Wisconsin,Wisconsin
 WI,Hemp,,Shelby Ellison,University of Wisconsin,Wisconsin
 WI,Oats,,Lucia Gutierrez,University of Wisconsin,Wisconsin
 WI,Potato,,Jeffrey Endelman,University of Wisconsin,Wisconsin
+WI,Sweetcorn,,William F Tracy,University of Wisconsin,Wisconsin
 WI,Tomato,,Julie Dawson,University of Wisconsin,Wisconsin
 WI,Wheat,,Lucia Gutierrez,University of Wisconsin,Wisconsin
 WV,Tomato,,Barbara Liedl,West Virginia State University,West Virginia
-FL,Turf,,Kevin Kenworthy,University of Florida,Florida
-GA,Turf,,Brian Schwartz,University of Georgia,Georgia
-GA,Turf,,Phillip Vines,University of Georgia,Georgia
-GA,Turf,,Paul Raymer,University of Georgia,Georgia
-NC,Turf,,Susana Milla-Lewis,North Carolina State University,North Carolina
-TX,Turf,,Ambika Chandra,Texas A&M University,Texas
-OK,Turf,,Yanqi Wu,Oklahoma State University,Oklahoma
-CA,Turf,,Adam Lukaszewski,"University of California, Riverside",California
-CA,Turf,,James H Baird,"University of California, Riverside",California
-NJ,Turf,,Stacy Bonos,Rutgers University,New Jersey
-MN,Turf,,Eric Watkins,University of Minnesota,Minnesota
