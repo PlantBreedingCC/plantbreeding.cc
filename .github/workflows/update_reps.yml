@@ -137,7 +137,9 @@ jobs:
                 'clemson': 'SC',
                 'auburn': 'AL',
                 'cornell': 'NY',
-                'rutgers': 'NJ'
+                'rutgers': 'NJ',
+                'lsu agricultural center': 'LA',
+                'lsu agcenter': 'LA'
             }
             
             for pattern, abbr in university_patterns.items():
