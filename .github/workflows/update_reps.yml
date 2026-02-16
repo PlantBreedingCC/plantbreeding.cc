@@ -207,6 +207,10 @@ jobs:
                 cells = row.find_all(['td', 'th'])
                 if len(cells) < 3:  # Need at least name, station, and lead columns
                     continue
+                
+                # Skip header rows (rows where first cell is <th>)
+                if cells[0].name == 'th':
+                    continue
                     
                 # Process name cell with <br> tag handling
                 participant_name_raw = ""
