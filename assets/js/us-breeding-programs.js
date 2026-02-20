@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let filteredBreedingPrograms = {};
     let activeCrop = null;
     let selectedState = null;
+    let colorScale = null;
 
     // Create crop filter buttons container
     const buttonContainer = d3.select('#us-map-container')
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         createCropFilterButtons(csvData);
         
         // Draw the map
+        updateColorScale();
         drawMap(us);
     });
 
@@ -336,6 +338,54 @@ document.addEventListener('DOMContentLoaded', function() {
             .classed('active', true);
     }
     
+    // Compute a sequential color scale based on current filtered program counts
+    function updateColorScale() {
+        const counts = Object.values(filteredBreedingPrograms).map(d => d.count);
+        const maxCount = counts.length > 0 ? Math.max(...counts) : 1;
+        colorScale = d3.scaleSequentialLog()
+            .domain([1, Math.max(maxCount, 2)])
+            .interpolator(t => d3.interpolateBlues(0.4 + 0.6 * t));
+    }
+
+    // Return the fill color for a state
+    function getStateColor(stateAbbr) {
+        const data = filteredBreedingPrograms[stateAbbr];
+        if (!data) return "#e0e0e0";
+        if (activeCrop !== null) return "#3A506B";
+        return colorScale ? colorScale(data.count) : "#3A506B";
+    }
+
+    // Draw or redraw the color-scale legend
+    function drawLegend() {
+        svg.select("#map-legend").remove();
+
+        const counts = Object.values(filteredBreedingPrograms).map(d => d.count);
+        if (counts.length === 0 || !colorScale || activeCrop !== null) return;
+
+        const maxCount = Math.max(...counts);
+        const legendWidth = 160;
+        const legendHeight = 12;
+        const legendX = 10;
+        const legendY = height - 42;
+
+        // Ensure a <defs> element exists
+        let defs = svg.select("defs");
+        if (defs.empty()) defs = svg.append("defs");
+
+        // (Re)create the linear gradient
+        defs.select("#legend-gradient").remove();
+        const linearGradient = defs.append("linearGradient")
+            .attr("id", "legend-gradient");
+
+        const numStops = 12;
+        for (let i = 0; i <= numStops; i++) {
+            const t = i / numStops;
+            linearGradient.append("stop")
+                .attr("offset", `${t * 100}%`)
+                .attr("stop-color", colorScale(1 + t * (maxCount - 1)));
+        }
+    }
+
     // Draw the map
     function drawMap(us) {
         // Clear existing paths
@@ -349,12 +399,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .append("path")
             .attr("d", path)
             .attr("fill", function(d) {
-                // Get state ID
-                const stateId = d.id;
-                // Convert numeric ID to state abbreviation
-                const stateAbbr = getStateAbbr(stateId);
-                // Color based on whether state has data
-                return filteredBreedingPrograms[stateAbbr] ? "#3A506B" : "#e0e0e0";
+                const stateAbbr = getStateAbbr(d.id);
+                return getStateColor(stateAbbr);
             })
             .attr("stroke", "#fff")
             .attr("stroke-width", 0.5)
@@ -471,11 +517,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .on("mouseout", function(event, d) {
-                // Fix: Ensure 'd' is properly accessed
-                const stateId = d.id;
-                const stateAbbr = getStateAbbr(stateId);
-                                
-                d3.select(this).attr("fill", filteredBreedingPrograms[stateAbbr] ? "#3A506B" : "#e0e0e0");
+                const stateAbbr = getStateAbbr(d.id);
+                d3.select(this).attr("fill", getStateColor(stateAbbr));
                 
                 // Hide tooltip
                 tooltip.transition()
@@ -483,6 +526,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     .style("opacity", 0);
             });
         
+        // Draw the legend
+        drawLegend();
+
         // Add click handler to clear selection when clicking on empty space
         svg.on("click", function(event) {
             // Only clear if clicking on the SVG background (not a state)
@@ -496,19 +542,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Update the map with current filter
     function updateMap() {
+        updateColorScale();
         svg.selectAll("path")
             .transition()
             .duration(300)
             .attr("fill", function(d) {
-                const stateId = d.id;
-                const stateAbbr = getStateAbbr(stateId);
-                return filteredBreedingPrograms[stateAbbr] ? "#3A506B" : "#e0e0e0";
+                const stateAbbr = getStateAbbr(d.id);
+                return getStateColor(stateAbbr);
             })
             .attr("stroke-width", function(d) {
-                const stateId = d.id;
-                const stateAbbr = getStateAbbr(stateId);
+                const stateAbbr = getStateAbbr(d.id);
                 return selectedState === stateAbbr ? 3 : 0.5;
             });
+        drawLegend();
     }
     
     // Helper function to convert state ID to abbreviation
