@@ -8,4 +8,5 @@ articles:
   sort_by: date
   reverse: true
   link_to_pdf: true
+  show_info: true
 ---

@@ -7,4 +7,4 @@ key: research-breeding-harmony
 cover: /assets/images/research/2011-brummer-harmony.png
 ---
 
-While past yield gains have fed a growing population, they have also contributed to soil degradation, nutrient runoff, and biodiversity loss. But it's possible to breed crops that use water and nutrients more efficiently, tolerate climate stress, and even enhance ecosystem services through perennial systems and improved root traits. Stronger partnerships between breeders, ecologists, and policy makers are essential to align agriculture with long-term environmental health.
+Past yield gains fed a growing population but also drove soil degradation, nutrient runoff, and biodiversity loss. Breeding crops with greater water and nutrient efficiency, climate resilience, and perennial root systems can reduce impacts and enhance ecosystem services. Stronger collaboration among breeders, ecologists, and policy makers is key to aligning agriculture with long-term environmental health.
