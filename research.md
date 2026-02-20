@@ -4,6 +4,5 @@ title: Research
 key: page-research
 articles:
   data_source: site.research
-  type: grid
+  show_excerpt: true
 ---
-
