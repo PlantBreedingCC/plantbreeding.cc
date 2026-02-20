@@ -1,0 +1,56 @@
+name: 📄 New Research Article
+description: Submit a new research article to be added to the website.
+title: "[RESEARCH]: "
+labels: "research"
+
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: The title of the research article.
+      placeholder: e.g., Transitions in Plant Breeding
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: Publication Date
+      description: Date of publication in YYYY-MM-DD format.
+      placeholder: e.g., 2025-05-09
+    validations:
+      required: true
+
+  - type: input
+    id: identifier
+    attributes:
+      label: File Identifier
+      description: >
+        A short, unique key used for the filename (no spaces, lowercase, hyphens
+        only). Typically formatted as "lastname-keyword", e.g., "hale-sustaining"
+        or "byrne-npgs".
+      placeholder: e.g., hale-sustaining
+    validations:
+      required: true
+
+  - type: textarea
+    id: pdf_upload
+    attributes:
+      label: PDF File
+      description: >
+        Drag and drop the PDF file into this box. GitHub will upload it and
+        insert a link automatically. Do not delete or modify that link.
+      placeholder: Drag and drop the PDF here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: >
+        A brief summary of the article. Must be 400 characters or fewer.
+      placeholder: Enter a concise summary of the article...
+    validations:
+      required: true
