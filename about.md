@@ -4,10 +4,6 @@ title: About
 key: page-about
 ---
 
-### Procedures
-
-Annual meetings will be held to exchange information, plan and coordinate activities, and review progress towards meeting the committee’s objectives. Between annual meetings, communication will take place through email, online discussion groups, and conference calls, as needed. Since all PBCC activities depend on voluntary member contributions, progress toward achieving the objectives will depend on the level of input from participants. It is envisioned that for each of the objectives a subcommittee or task force will be formed to focus on the following activities: 
-
 ### Objectives
 
 ***Objective 1***: Collect, analyze, and disseminate information about U.S. public and private plant breeding efforts, including human capacity and access to enabling knowledge, technologies, germplasm, and infrastructure
@@ -56,12 +52,10 @@ Each leadership position is a one year term. Officers include a Chair, Vice-Chai
   </table>
 </div>
 
+### Procedures
+
+Annual meetings will be held to exchange information, plan and coordinate activities, and review progress towards meeting the committee’s objectives. Between annual meetings, communication will take place through email, online discussion groups, and conference calls, as needed. Since all PBCC activities depend on voluntary member contributions, progress toward achieving the objectives will depend on the level of input from participants. It is envisioned that for each of the objectives a subcommittee or task force will be formed to focus on the following activities: 
+
 ### Helpful Links
 
 [Register](/register) for the multistate project
-
-[Letterhead](/assets/administration/PBCC_letterhead.docx)
-
-[State experiment station directors](/assets/administration/State_directors_6_23_2023.xlsx)
-
-[Operating protocols](/assets/administration/PBCC_operating_document.pdf)
