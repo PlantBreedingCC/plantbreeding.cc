@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Plant Breeding Harmony
-date: 2011-01-01
+date: 2011-09-14
 pdf: /assets/research/2011-brummer-harmony.pdf
 key: research-breeding-harmony
 cover: /assets/images/research/2011-brummer-harmony.png
