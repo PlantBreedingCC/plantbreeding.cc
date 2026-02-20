@@ -55,7 +55,13 @@
           </div>
         {%- endif -%}
         <div class="item__content">
-          <header><a href="{{ _article_url }}"><h2 itemprop="headline" class="item__header">{{ _article.title }}</h2></a></header>
+          <header>
+            {%- if include.link_to_pdf and _article.pdf -%}
+              <a href="{{ _article.pdf }}"><h2 itemprop="headline" class="item__header">{{ _article.title }}</h2></a>
+            {%- else -%}
+              <a href="{{ _article_url }}"><h2 itemprop="headline" class="item__header">{{ _article.title }}</h2></a>
+            {%- endif -%}
+          </header>
           <div class="item__description">
             {%- if _article.excerpt and include.show_excerpt -%}
               <div class="article__content" itemprop="description articleBody">

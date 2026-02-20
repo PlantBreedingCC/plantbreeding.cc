@@ -7,4 +7,5 @@ articles:
   show_excerpt: true
   sort_by: date
   reverse: true
+  link_to_pdf: true
 ---
