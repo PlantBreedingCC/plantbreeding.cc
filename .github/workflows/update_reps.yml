@@ -354,8 +354,9 @@ jobs:
         else
           echo "- **Action:** No changes, no PR created" >> $GITHUB_STEP_SUMMARY
         fi
-  keepalive-job:
+  workflow-keepalive:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
-      - uses: actions/checkout@v4
       - uses: liskin/gh-workflow-keepalive@v1
