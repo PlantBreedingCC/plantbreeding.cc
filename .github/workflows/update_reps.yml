@@ -102,8 +102,8 @@ jobs:
             
             station_lower = station_text.lower()
             
-            # Try to find state name in the text
-            for state_name, abbr in state_map.items():
+            # Try to find state name in the text (longest first to avoid 'virginia' matching before 'west virginia')
+            for state_name, abbr in sorted(state_map.items(), key=lambda x: len(x[0]), reverse=True):
                 if state_name in station_lower:
                     return abbr
             
