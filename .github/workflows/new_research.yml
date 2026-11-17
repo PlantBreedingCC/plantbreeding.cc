@@ -67,7 +67,7 @@ jobs:
               return match ? match[1].trim() : '';
             };
 
-            const title      = extractField('Article Title',   issueBody);
+            const title      = extractField('Title',           issueBody);
             const date       = extractField('Publication Date', issueBody);
             const identifier = extractField('File Identifier',  issueBody);
             const pdfRaw     = extractField('PDF File',         issueBody);
