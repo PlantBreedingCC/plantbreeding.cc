@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Institutional perspectives on the public plant breeding enterprise
+title: Institutional perspectives on public plant breeding
 date: 2026-10-20
 pdf: /assets/research/2026-10-thompson-perspectives.pdf
 key: research-thompson-perspectives
